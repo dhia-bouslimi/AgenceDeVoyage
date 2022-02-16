@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="Form" name="form 2" cloudDestinationProperty="form 2" >
+  <component type="Label" name="Label" cloudDestinationProperty="Label" text="hello world 2" >
+  </component>
+  <component type="Button" name="Button" cloudDestinationProperty="Button" text="ok 2" >
+  </component>
+</component>
