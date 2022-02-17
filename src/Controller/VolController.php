@@ -94,4 +94,24 @@ class VolController extends AbstractController
         $response->send();
         return $this->redirectToRoute('volList');
     }
+
+    /**
+     * @Route("/detail_vol/{id}", name="detail")
+     */
+    public function detailVol(\Symfony\Component\HttpFoundation\Request $req, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $vol = $em->getRepository(Vol::class)->find($id);
+
+
+        return $this->render('vol/detail.html.twig', array(
+            'id' => $vol->getId(),
+            'etat' => $vol->getEtat(),
+            'depart' => $vol->getDepart(),
+            'arrive' => $vol->getArrive(),
+            'duree' => $vol->getDuree(),
+            'destination'=>$vol->getDestination(),
+            'place' => $vol->getPlace()
+        ));
+    }
 }
