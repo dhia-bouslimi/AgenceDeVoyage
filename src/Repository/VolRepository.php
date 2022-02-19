@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Voiture;
+use App\Entity\Vol;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Voiture|null find($id, $lockMode = null, $lockVersion = null)
- * @method Voiture|null findOneBy(array $criteria, array $orderBy = null)
- * @method Voiture[]    findAll()
- * @method Voiture[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Vol|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Vol|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Vol[]    findAll()
+ * @method Vol[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class VoitureRepository extends ServiceEntityRepository
+class VolRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Voiture::class);
+        parent::__construct($registry, Vol::class);
     }
 
     // /**
-    //  * @return Voiture[] Returns an array of Voiture objects
+    //  * @return Vol[] Returns an array of Vol objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class VoitureRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Voiture
+    public function findOneBySomeField($value): ?Vol
     {
         return $this->createQueryBuilder('v')
             ->andWhere('v.exampleField = :val')
