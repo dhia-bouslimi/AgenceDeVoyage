@@ -31,13 +31,14 @@
                     </div>
 
                     <h4 class="header-title m-t-0 m-b-30">Add Vol</h4>
-                    {{ form_start(formA)}}
+    {{ form_start(formA, {attr: {novalidate: 'novalidate'}}) }}
 
 
                     <div class="form-group">
                         <label for="nom">etat*</label>
 
                         {{ form_widget(formA.etat, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(formA.etat, {'attr': {'class': 'text-danger'}}) }}
 
                     </div>
                     <div class="form-group">
@@ -45,11 +46,48 @@
 
                         <div class="form-group">
                             {{ form_widget(formA.depart, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(formA.depart, {'attr': {'class': 'text-danger'}}) }}
 
                         </div>
+                        <div class="form-group">
+                            <label for="nom">arrive*</label>
+
+                            <div class="form-group">
+                                {{ form_widget(formA.arrive, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(formA.arrive, {'attr': {'class': 'text-danger'}}) }}
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nom">duree*</label>
+
+                                <div class="form-group">
+                                    {{ form_widget(formA.duree, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_errors(formA.duree, {'attr': {'class': 'text-danger'}}) }}
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nom">place*</label>
+
+                                    <div class="form-group">
+                                        {{ form_widget(formA.place, {'attr': {'class': 'form-control'}}) }}
+                                        {{ form_errors(formA.place, {'attr': {'class': 'text-danger'}}) }}
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nom">destination*</label>
+
+                                     <div class="form-group">
+                                            {{ form_widget(formA.destination, {'attr': {'class': 'form-control'}}) }}
+                                         {{ form_errors(formA.destination, {'attr': {'class': 'text-danger'}}) }}
+
+                                        </div>
 
 
-                        <div class="form-group text-right m-b-0">
+
+                                        <div class="form-group text-right m-b-0">
                             {{ form_widget(formA.Submit, {'attr': {'class': 'btn btn-primary waves-effect waves-light'}}) }}
                             <button type="reset" class="btn btn-secondary waves-effect waves-light m-l-5">Reset
                             </button>

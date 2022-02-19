@@ -43,9 +43,13 @@
 
             <td >Etat</td>
             <td >Date_Depart</td>
+            <td >Date_Arrive</td>
+
+
 
             <td >Modifier</td>
             <td >Supprimer</td>
+            <td >Detail</td>
         </tr>
         </thead>
         <tbody id="all">
@@ -60,9 +64,29 @@
                 </td>
                 <td>
 
-                    {{ Vol.depart |date('d/m/Y') }}
+                    {{ Vol.depart |date('d-m-Y H:i') }}
 
                 </td>
+                <td>
+
+                    {{ Vol.arrive |date('d-m-Y H:i') }}
+
+                </td>
+              {#<td>
+
+                    {{ Vol.duree }}
+
+                </td> #}
+              {#  <td>
+
+                    {{ Vol.place }}
+
+                </td>#}
+              {# <td>
+
+                    {{ Vol.destination }}
+
+                </td> #}
 
 
 
@@ -78,6 +102,9 @@
                     <a href="{{ path('delete_vol', {'id': Vol.id}) }}"
 
                         onclick="return confirm('Etes vous sûr de supprimer ');"><i class="fa fa-trash" ></i></td>
+                <td>
+                    <a href="{{ path('detail',{'id':Vol.id}) }}"><i class="fa fa-list" style="color:#0eac5c;font-size:20px"></i> </a>
+                </td>
 
             </tr>
         {% endfor %}
