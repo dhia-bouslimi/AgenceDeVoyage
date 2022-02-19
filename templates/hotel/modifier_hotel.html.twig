@@ -10,9 +10,19 @@
         <div class="content">
             <div class="container-fluid">
 
+
+
                 <div class="row">
-                    <h1>Add Product</h1>
+                    <h1>Modifier hotel</h1>
                 </div>
+                <div class="row">
+                    <a href="{{ path('hotel_list') }}">
+                        <i class="fa fa-arrow-circle-left" style="font-size: 30px;"></i>
+
+                    </a>
+
+                </div>
+
 
                 <div class="row">
 
@@ -79,13 +89,33 @@
                                 {{ form_errors(f.nbrChambre, {'attr': {'class': 'text-danger'}}) }}
 
                             </div>
+
                             <div class="form-group">
-                                <label for="nom">Image*</label>
 
-                                {{ form_widget(f.image, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(f.image, {'attr': {'class': 'text-danger'}}) }}
+                                <div class="col-sm-12">
+                                    <div class="card-box">
 
+                                        <div class="dropdown pull-right">
+                                            <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                                                <i class="mdi mdi-dots-vertical"></i>
+                                            </a>
+                                        </div>
+
+                                        <h4 class="header-title m-t-0 m-b-30">Image</h4>
+                                        {{ form_widget(f.image, {'attr': {'class': 'dropify','data-height':'200'}}) }}
+
+                                    </div>
+                                </div>
                             </div>
+
+                            <!--    <div class="form-group">
+
+                            <label for="nom">Image*</label>
+
+                            {{ form_widget(f.image, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(f.image, {'attr': {'class': 'text-danger'}}) }}
+
+                        </div>   -->
 
 
                             <div class="form-group">
@@ -119,5 +149,19 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $('.dropify').dropify({
+            messages: {
+                'default': 'Drag and drop a file here or click',
+                'replace': 'Drag and drop or click to replace',
+                'remove': 'Remove',
+                'error': 'Ooops, something wrong appended.'
+            },
+            error: {
+                'fileSize': 'The file size is too big (1M max).'
+            }
+        });
+    </script>
 
 {% endblock %}
