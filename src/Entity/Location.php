@@ -18,17 +18,17 @@ class Location
     private $id;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $date_debut;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $date_fin;
 
     /**
-     * @ORM\ManyToOne(targetEntity=voiture::class, inversedBy="locations")
+     * @ORM\ManyToOne(targetEntity=Voiture::class, inversedBy="locations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $voiture;
@@ -42,6 +42,10 @@ class Location
     {
         return $this->date_debut;
     }
+    public function getdate_Debut(): ?\DateTimeInterface
+    {
+        return $this->date_debut;
+    }
 
     public function setDateDebut(\DateTimeInterface $date_debut): self
     {
@@ -51,6 +55,10 @@ class Location
     }
 
     public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->date_fin;
+    }
+    public function getdate_Fin(): ?\DateTimeInterface
     {
         return $this->date_fin;
     }
