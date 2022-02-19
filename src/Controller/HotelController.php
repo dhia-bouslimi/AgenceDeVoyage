@@ -36,6 +36,16 @@ class HotelController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
 
+            //upload image
+            $uploadFile = $form['image']->getData(); // valeur  image
+            $filename = md5(uniqid()) . '.' .$uploadFile->guessExtension();//crypter image
+
+            $uploadFile->move($this->getParameter('kernel.project_dir').'/public/uploads/hotel_image',$filename);
+
+
+            $hotel->setImage($filename);
+
+            //-----------
 
             $em->persist($hotel);
 
@@ -85,6 +95,17 @@ class HotelController extends AbstractController
         $form->handleRequest($req);
 
         if($form->isSubmitted() && $form->isValid()) {
+
+            //upload image
+            $uploadFile = $form['image']->getData(); // valeur  image
+            $filename = md5(uniqid()) . '.' .$uploadFile->guessExtension();//crypter image
+
+            $uploadFile->move($this->getParameter('kernel.project_dir').'/public/uploads/hotel_image',$filename);
+
+
+            $prod->setImage($filename);
+
+            //-----------
             $em->flush();
 
             return $this->redirectToRoute('hotel_list');
@@ -94,6 +115,31 @@ class HotelController extends AbstractController
         return $this->render('hotel/modifier_hotel.html.twig',array("f"=>$form->createView()));
 
 
+    }
+
+
+
+    /**
+     * @Route("/detail_hotel/{id}", name="detailhotel")
+     */
+    public function detailHotel(\Symfony\Component\HttpFoundation\Request $req, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $hotel = $em->getRepository(Hotel::class)->find($id);
+
+
+        return $this->render('hotel/detail_Hotel.html.twig', array(
+            'id' => $hotel->getId(),
+            'nom' => $hotel->getNom(),
+            'address' => $hotel->getAddress(),
+            'etoile' => $hotel->getEtoile(),
+            'etat'=>$hotel->getEtat(),
+            'nbrChambre'=>$hotel->getNbrChambre(),
+            'image'=>$hotel->getImage(),
+            'description'=>$hotel->getDescription(),
+
+
+        ));
     }
 
 

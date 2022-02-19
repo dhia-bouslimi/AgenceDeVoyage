@@ -46,6 +46,8 @@
                                     <th>etat</th>
                                     <th>Modifier</th>
                                     <th>Supprimer</th>
+                                    <th>details</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -58,6 +60,8 @@
                                         <td><a href="{{ path('modification',{'id':p.id}) }}"><i class="fa fa-pencil" style="color:#ff5b5b;font-size:20px"></i> </a> </td>
 
                                         <td><a href="{{ path('suppression',{'id':p.id}) }}"><i class="fa fa-trash" style="color:#00aff0;font-size:20px"></i> </a> </td>
+                                        <td><a href="{{ path('detailhotel',{'id':p.id}) }}"><i class="fa fa-list" style="color:#00aff0;font-size:20px"></i> </a> </td>
+
                                     </tr>
 
 
