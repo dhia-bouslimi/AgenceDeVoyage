@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VolRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -14,14 +16,14 @@ class Vol
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer" )
      */
     private $id;
 
 
 
     /**
-     * @Assert\NotBlank(message="etat vol doit etre non vide")
+     * @Assert\NotBlank(message="type de vol doit etre non vide")
      * @Assert\Length(
      *      min = 5,
      *      minMessage=" Entrer une chaine au minimum de 5 caracteres"
@@ -29,7 +31,23 @@ class Vol
      *     )
      * @ORM\Column(type="string", length=40)
      */
-    private $etat;
+    private $type;
+
+    /**
+     * @return mixed
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type): void
+    {
+        $this->type = $type;
+    }
 
     /**
      * @Assert\Date()
@@ -85,6 +103,16 @@ class Vol
      */
     private $place;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Billet::class, mappedBy="vol", orphanRemoval=true)
+     */
+    private $billets;
+
+    public function __construct()
+    {
+        $this->billets = new ArrayCollection();
+    }
+
 
 
 
@@ -113,17 +141,7 @@ class Vol
         $this->id = $id;
     }
 
-    public function getEtat(): ?string
-    {
-        return $this->etat;
-    }
 
-    public function setEtat(string $etat): self
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
 
     public function getDepart(): ?\DateTimeInterface
     {
@@ -186,6 +204,38 @@ class Vol
 
         return $this;
     }
+
+    /**
+     * @return Collection|Billet[]
+     */
+    public function getBillets(): Collection
+    {
+        return $this->billets;
+    }
+
+    public function addBillet(Billet $billet): self
+    {
+        if (!$this->billets->contains($billet)) {
+            $this->billets[] = $billet;
+            $billet->setVol($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBillet(Billet $billet): self
+    {
+        if ($this->billets->removeElement($billet)) {
+            // set the owning side to null (unless already changed)
+            if ($billet->getVol() === $this) {
+                $billet->setVol(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
 
 
