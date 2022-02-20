@@ -11,7 +11,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <a href="{{ path('volList') }}">
-                        <i class="fa fa-arrow-circle-left" style="font-size: 30px;"></i>
+                        <i class="fa fa-arrow-circle-left" style="font-size: 40px;"></i>
 
                     </a>
 
@@ -25,7 +25,7 @@
                            {# <img class="card-img-top img-fluid" src="assets/images/gallery/2.jpg" alt="Card image cap"> #}
                             <div class="card-body">
                                 <h4 class="card-title">Vol numéro :{{ id }}</h4>
-                                <p class="card-text">ETAT: <span style="color:#3BAFDA">{{ etat }}</span> </p>
+                                <p class="card-text">Type: <span style="color:#3BAFDA">{{ type }}</span> </p>
                                 <p class="card-text">DEPART:  <span style="color:#3BAFDA">{{ depart |date('d-m-Y H:i') }} </p>
                                 <p class="card-text">ARRIVE: <span style="color:#3BAFDA">{{ arrive |date('d-m-Y H:i') }}</span>  </p>
                                 <p class="card-text">DUREE: <span style="color:#3BAFDA">{{ duree }}</span> </p>

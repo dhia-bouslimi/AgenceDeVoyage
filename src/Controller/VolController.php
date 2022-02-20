@@ -106,7 +106,7 @@ class VolController extends AbstractController
 
         return $this->render('vol/detail.html.twig', array(
             'id' => $vol->getId(),
-            'etat' => $vol->getEtat(),
+            'type' => $vol->getType(),
             'depart' => $vol->getDepart(),
             'arrive' => $vol->getArrive(),
             'duree' => $vol->getDuree(),
@@ -114,4 +114,15 @@ class VolController extends AbstractController
             'place' => $vol->getPlace()
         ));
     }
+//------------------------front-------------------------------------------------
+    /**
+     * @Route("/frontvol", name="frontvol")
+     */
+    public function indexFrontVol(): Response
+    {
+        return $this->render('vol/frontVol.html.twig', [
+            'controller_name' => 'VolController',
+        ]);
+    }
+
 }

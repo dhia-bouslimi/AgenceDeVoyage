@@ -12,12 +12,13 @@
 
 
     <div class="row">
-
     <div class="col-12">
     <div class="card-box">
+
     <div class="dropdown pull-right">
         <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
-            <i class="mdi mdi-dots-vertical"></i>
+            <a href="{{ path('billetList') }}">
+            <i class="fa fa-arrow-circle-right" style="font-size: 30px;"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right">
             <!-- item-->
@@ -30,8 +31,12 @@
             <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
         </div>
     </div>
-    <h4 class="m-t-0 header-title">List Vol</h4>
+    <h4 class="m-t-0 header-title">List Vol </h4>
+    <a href="{{ path('vol') }}">
+    <i class="fa fa-arrow-circle-left" style="font-size: 40px;"></i>
+
     <p class="text-muted font-14 m-b-20">
+
 
         <a href="{{ path('create') }}">
             <button type="button" class="btn btn-purple btn-rounded w-md waves-effect waves-light m-b-5">Ajouter Vol</button>                            </p>
@@ -41,7 +46,7 @@
         <thead>
         <tr>
 
-            <td >Etat</td>
+            <td >Type</td>
             <td >Date_Depart</td>
             <td >Date_Arrive</td>
 
@@ -59,7 +64,7 @@
 
                 <td>
 
-                    {{ Vol.etat }}
+                    {{ Vol.type }}
 
                 </td>
                 <td>
