@@ -137,10 +137,9 @@ class HotelController extends AbstractController
             'nbrChambre'=>$hotel->getNbrChambre(),
             'image'=>$hotel->getImage(),
             'description'=>$hotel->getDescription(),
-
+            //hotel
 
         ));
     }
-
 
 }
