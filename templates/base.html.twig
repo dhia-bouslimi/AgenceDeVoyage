@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
-
+    {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
     {% block stylesheets %}
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -154,14 +155,14 @@
                 <ul>
                     <li class="text-muted menu-title">Navigation</li>
                     <li>
-                        <a href="{{ path('volList') }}" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Gestion Vol </span> </a>
+                        <a href="{{ path('product_list') }}" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Gestion Produit </span> </a>
                     </li>
                     <li>
-                        <a href="{{ path('voiture_list') }}" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Gestion Voiture </span> </a>
+                        <a href="{{ path('create') }}" class="waves-effect"><i class="mdi mdi-view-dashboard"></i> <span> Gestion Vol </span> </a>
                     </li>
 
                     <li>
-                        <a href="typography.html" class="waves-effect"><i class="mdi mdi-format-font"></i> <span> Gestion shop</span> </a>
+                        <a href="typography.html" class="waves-effect"><i class="mdi mdi-format-font"></i> <span> Gestion Voitures </span> </a>
                     </li>
 
                     <li class="has_sub">
@@ -186,8 +187,8 @@
                     </li>
 
                     <li class="has_sub">
-                        <a  href="{{ path('hotel_list') }}" class="waves-effect"><i class="mdi mdi-texture"></i><span class="badge badge-warning pull-right">7</span><span> Gestion des hotels </span> </a>
-                        <ul class="list-unstyledtyled">
+                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-texture"></i><span class="badge badge-warning pull-right">7</span><span> Shop </span> </a>
+                        <ul class="list-unstyled">
                             <li><a href="form-elements.html">General Elements</a></li>
                             <li><a href="form-advanced.html">Advanced Form</a></li>
                             <li><a href="form-validation.html">Form Validation</a></li>

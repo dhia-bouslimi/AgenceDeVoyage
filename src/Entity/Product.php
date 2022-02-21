@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
@@ -18,20 +20,107 @@ class Product
     private $id;
 
     /**
+     * @Assert\NotBlank(message="nom produit doit etre non vide")
+     * @Assert\Length(
+     *      min = 5,
+     *      minMessage=" Entrer un nom au mini de 5 caracteres"
+     *
+     *     )
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Nom;
+
+    /**
+     * @Assert\NotBlank(message="prix produit doit etre non vide")
+     * @Assert\Positive
+     * @Assert\Range(
+     *      min = 3,
+     *      max = 1000,
+     *      notInRangeMessage = "le prix doit etre valid",
+     *     )
      * @ORM\Column(type="float")
      */
     private $prix;
 
+    /**
+     * @Assert\NotBlank(message="description produit doit etre non vide")
+     * @Assert\Length(
+     *      min = 7,
+     *      max = 100,
+     *      minMessage = "doit etre >=7 ",
+     *      maxMessage = "doit etre <=100" )
+     * @ORM\Column(type="string", length=1000)
+     */
+    private $description;
+
+    /**
+     * @Assert\NotBlank(message="couleur produit doit etre non vide")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $coleur;
+    /**
+     * @ORM\Column(type="datetime",nullable=true)
+     */
+    private $dateCreation;
+
+
 
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=500,nullable=true)
      */
-    private $date;
+    private $image;
+
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="products")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="category_id")
+     */
+    private $category;
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
+    }
+
+
+
+
+
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->Nom;
+    }
+
+    public function setNom(string $Nom): self
+    {
+        $this->Nom = $Nom;
+
+        return $this;
     }
 
     public function getPrix(): ?float
@@ -46,27 +135,107 @@ class Product
         return $this;
     }
 
-    public function getIdentifiant(): ?int
+    public function getDescription(): ?string
     {
-        return $this->identifiant;
+        return $this->description;
     }
 
-    public function setIdentifiant(int $identifiant): self
+    public function setDescription(string $description): self
     {
-        $this->identifiant = $identifiant;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDateCreation(): ?\DateTimeInterface
     {
-        return $this->date;
+        return $this->dateCreation;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDateCreation(\DateTimeInterface $dateCreation): self
     {
-        $this->date = $date;
+        $this->dateCreation = $dateCreation;
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getColeur()
+    {
+        return $this->coleur;
+    }
+
+    /**
+     * @param mixed $coleur
+     */
+    public function setColeur($coleur): void
+    {
+        $this->coleur = $coleur;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image): void
+    {
+        $this->image = $image;
+    }
+
+    //UPLOAD IMAGE
+    //GeT PUBLIC FOLDER
+    public function getPublicFolder() {
+        $webPath = $this->get('kernel')->getProjectDir() . '/public/uploads/produit_image';
+
+        return $webPath;
+
+
+    }
+
+    /**
+     * @return UploadedFile
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param UploadedFile
+     */
+    public function setFile($file): void
+    {
+        $this->file = $file;
+    }
+
+
+    //te5o image w tzidha fi dossier produit_image
+    public function upload()
+    {
+        if(null === $this->getFile()) {
+            return;
+        }
+
+        $this->getFile()->move(
+            $this->getPublicFolder(),//destinataire
+            $this->getFile()->getClientOriginalName()//esem fichier (image)
+        );
+
+        $this->image = $this->getFile()->getClientOriginalName();//
+
+        $this->file = null; // liberation memoire
+    }
+
+
+
+
 }
