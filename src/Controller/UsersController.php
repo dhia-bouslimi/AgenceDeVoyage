@@ -2,12 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Users;
-use App\Form\UsersType;
+use App\Entity\User;
+use App\Form\UserType;
 use http\Env\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+
+
+
+
 class UsersController extends AbstractController
 {
     /**
@@ -16,35 +22,37 @@ class UsersController extends AbstractController
     public function index(): Response
     {
 
-        $res = $this->getDoctrine()->getManager()->getRepository(Users::class)->findAll();
-        return $this->render('users/listUsers.html.twig',array('users'=>$res));
+        $res = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
+        return $this->render('users/listUsers.html.twig',array('user'=>$res));
     }
 
 
     /**
      * @Route("/addUsers", name="add")
      */
-    public function addUsers(\Symfony\Component\HttpFoundation\Request  $request): Response
+    public function addUsers(\Symfony\Component\HttpFoundation\Request  $request,UserPasswordEncoderInterface $encoder): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $users = new Users();
-        $form= $this->createForm(UsersType::class,$users);
+        $user = new User();
+        $form= $this->createForm(UserType::class,$user);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
 
-            $date = new \DateTime('@'.strtotime('now'));
+
             /*
              * Add product
              */
-            $em->persist($users);
+            $hash= $encoder->encodePassword($user,$user->getPassword());
+            $user->setPassword($hash);
+            $em->persist($user);
             /*
              * Commit
              */
             $em->flush();
 
-            return  $this->redirectToRoute('users_list');
+            return  $this->redirectToRoute('login');
 
         }
 
@@ -56,8 +64,8 @@ class UsersController extends AbstractController
      */
     public function updateUsers(\Symfony\Component\HttpFoundation\Request $req, $id) {
         $em= $this->getDoctrine()->getManager();
-        $prod = $em->getRepository(Users::class)->find($id);
-        $form = $this->createForm(UsersType::class,$prod);
+        $prod = $em->getRepository(User::class)->find($id);
+        $form = $this->createForm(UserType::class,$prod);
         $form->handleRequest($req);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -76,7 +84,7 @@ class UsersController extends AbstractController
      */
     public function  supprimerProduit($id) {
         $em= $this->getDoctrine()->getManager();
-        $i = $em->getRepository(Users::class)->find($id);
+        $i = $em->getRepository(User::class)->find($id);
 
         $em->remove($i);
         $em->flush();
@@ -84,6 +92,42 @@ class UsersController extends AbstractController
         return $this->redirectToRoute("users_list");
 
     }
+    /**
+     * @Route("/detailUsers/{id}", name="detailUsers")
+     */
+    public function detailUsers(\Symfony\Component\HttpFoundation\Request $req, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository(User::class)->find($id);
+
+
+        return $this->render('users/detailUsers.html.twig', array(
+            'id' => $user->getId(),
+            'email' => $user->getEmail(),
+            'roles' => $user->getRoles(),
+            'password' => $user->getPassword(),
+            'name' => $user->getName()
+
+
+
+
+
+
+        ));
+    }
+    /**
+     * @Route("/connexion", name="security_login")
+     */
+
+    public function login(){
+
+        return $this->render('users/login.html.twig');
+    }
+    /**
+     * @Route(" /logout ", name= "security_logout")
+     */
+    public function logout() { }
+
 
 
 }

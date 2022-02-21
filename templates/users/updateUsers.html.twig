@@ -47,6 +47,14 @@
                                 {{ form_widget(f.role, {'attr':{'class':'form-control'}})}}
                             </div>
                             <div class="form-group">
+                                <label for="name">mot_de_passe</label>
+                                {{ form_widget(f.Mot_de_passe, {'attr':{'class':'form-control'}})}}
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Confirmation</label>
+                                {{ form_widget(f.confirm_de_passe, {'attr':{'class':'form-control'}})}}
+                            </div>
+                            <div class="form-group">
                                 {{ form_widget(f.Submit,{'attr':{'class':'btn btn-pink btn-rounded w-md waves-effect waves-light m-b-5'}}) }}
                             </div>
                             {{ form_end(f) }}

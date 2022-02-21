@@ -35,64 +35,43 @@
                         </div>
 
                         <h4 class="header-title m-t-0 m-b-30">Basic Form</h4>
-                        {{ form_start(f) }}
+                        {{ form_start(f, {attr: {novalidate: 'novalidate'}}) }}
 
                         <div class="form-group">
                             <label for="nom">Nom*</label>
 
-                            {{ form_widget(f.nom, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_widget(f.email, {'attr': {'class': 'form-control'}}) }}
+
 
                         </div>
                         <div class="form-group">
                             <label for="prenom">Prenom*</label>
 
-                            <div class="form-group">
-                                {{ form_widget(f.prenom, {'attr': {'class': 'form-control'}}) }}
+
+                                {{ form_widget(f.password, {'attr': {'class': 'form-control'}}) }}
+
 
                             </div>
-                            <div class="form-group">
-                                <label for="telephone">telephone*</label>
 
-                                <div class="form-group">
-                                    {{ form_widget(f.telephone, {'attr': {'class': 'form-control'}}) }}
-
-                                </div>
-
-                            </div>
                             <div class="form-group">
 
                                 <label for="adresse">adresse</label>
 
 
-                                {{ form_widget(f.adresse, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                            <div class="form-group">
-
-                                <label for="mail">mail</label>
-
-
-                                {{ form_widget(f.mail, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                            <div class="form-group">
-
-                                <label for="role">role</label>
-
-
-                                {{ form_widget(f.role, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_widget(f.name, {'attr': {'class': 'form-control'}}) }}
                             </div>
 
 
+                        <div class="form-group text-right m-b-0">
+                            {{ form_widget(f.Submit, {'attr': {'class': 'btn btn-primary waves-effect waves-light'}}) }}
+                            <button type="reset" class="btn btn-secondary waves-effect waves-light m-l-5">Reset
+                            </button>
+                            {{ form_end(f) }}
+
+                        </div>
+                    </div>
 
 
-
-
-                            <div class="form-group text-right m-b-0">
-                                {{ form_widget(f.Submit, {'attr': {'class': 'btn btn-primary waves-effect waves-light'}}) }}
-                                <button type="reset" class="btn btn-secondary waves-effect waves-light m-l-5">Reset
-                                </button>
-                                {{ form_end(f) }}
-
-                            </div>
                         </div>
                     </div>
 

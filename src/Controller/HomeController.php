@@ -13,8 +13,12 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
+
+        //user connected
+        $user = $this->container->get('security.token_storage')->getToken()->getUser()->getName();
+
         return $this->render('home/home.html.twig', [
-            'controller_name' => 'HomeController',
+            'controller_name' => 'HomeController','user' =>$user
         ]);
     }
 }
