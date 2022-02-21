@@ -41,7 +41,7 @@ class LocationController extends AbstractController
              */
             $em->flush();
 
-            return $this->redirectToRoute('location_list');
+            return $this->redirectToRoute('location_front');
 
         }
 
@@ -110,4 +110,16 @@ class LocationController extends AbstractController
 
 
     }
+
+    //LOcation list front:
+
+    /**
+     * @Route("/location_front", name="location_front")
+     */
+    public function listLocationsFront(): Response
+    {
+        $res = $this->getDoctrine()->getManager()->getRepository(location::class)->findAll();
+        return $this->render('location/ListLocationFront.html.twig', array('Locations' => $res));
+    }
+
 }
