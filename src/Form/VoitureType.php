@@ -20,7 +20,7 @@ class VoitureType extends AbstractType
             ->add('description')
             ->add('couleur')
             ->add('prix')
-            ->add('image',FileType::class)
+            ->add('image',FileType::class,array('data_class' => null))
             ->add('Submit',SubmitType::class)
         ;
     }
