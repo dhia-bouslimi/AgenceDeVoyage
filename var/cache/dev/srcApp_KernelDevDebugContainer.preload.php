@@ -10,7 +10,7 @@ if (in_array(PHP_SAPI, ['cli', 'phpdbg'], true)) {
 }
 
 require dirname(__DIR__, 3).''.\DIRECTORY_SEPARATOR.'vendor/autoload.php';
-require __DIR__.'/ContainerXuFj2eb/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/Container41FGVSl/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'Symfony\Bundle\FrameworkBundle\FrameworkBundle';
@@ -34,11 +34,15 @@ $classes[] = 'Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser';
 $classes[] = 'Symfony\Bundle\FrameworkBundle\EventListener\ResolveControllerNameSubscriber';
 $classes[] = 'Symfony\Component\HttpFoundation\RequestMatcher';
 $classes[] = 'Symfony\Component\DependencyInjection\ServiceLocator';
+$classes[] = 'App\Controller\HomeClientController';
 $classes[] = 'App\Controller\HomeController';
 $classes[] = 'App\Controller\RegistrationController';
 $classes[] = 'App\Controller\SecurityController';
 $classes[] = 'App\Controller\UsersController';
+$classes[] = 'App\Controller\VolController';
 $classes[] = 'App\Form\UserType';
+$classes[] = 'App\Form\UsersType';
+$classes[] = 'App\Form\VolType';
 $classes[] = 'App\Repository\AvisRepository';
 $classes[] = 'App\Repository\BilletRepository';
 $classes[] = 'App\Repository\CategorieRepository';
@@ -54,6 +58,7 @@ $classes[] = 'App\Repository\ProductRepository';
 $classes[] = 'App\Repository\ReclamationRepository';
 $classes[] = 'App\Repository\ReservationRepository';
 $classes[] = 'App\Repository\UserRepository';
+$classes[] = 'App\Repository\UsersRepository';
 $classes[] = 'App\Repository\VoitureRepository';
 $classes[] = 'App\Repository\VolRepository';
 $classes[] = 'App\Security\LoginFormAuthenticator';

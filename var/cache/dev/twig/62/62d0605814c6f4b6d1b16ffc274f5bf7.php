@@ -71,7 +71,7 @@ class __TwigTemplate_618595def6473232d031ebdbb3c948df extends Template
             <div class=\"container-fluid\">
 
                 <div class=\"row\">
-                    <h1>Add User</h1>
+                    <h1>Add  Client</h1>
                 </div>
 
                 <div class=\"row\">
@@ -94,7 +94,7 @@ class __TwigTemplate_618595def6473232d031ebdbb3c948df extends Template
                                 </div>
                             </div>
 
-                            <h4 class=\"header-title m-t-0 m-b-30\">Registration Form</h4>
+                            <h4 class=\"header-title m-t-0 m-b-30\">Client </h4>
 
 
                     <p></p>  <p></p>  <p></p> <p></p>  <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p>
@@ -191,7 +191,7 @@ class __TwigTemplate_618595def6473232d031ebdbb3c948df extends Template
             <div class=\"container-fluid\">
 
                 <div class=\"row\">
-                    <h1>Add User</h1>
+                    <h1>Add  Client</h1>
                 </div>
 
                 <div class=\"row\">
@@ -214,7 +214,7 @@ class __TwigTemplate_618595def6473232d031ebdbb3c948df extends Template
                                 </div>
                             </div>
 
-                            <h4 class=\"header-title m-t-0 m-b-30\">Registration Form</h4>
+                            <h4 class=\"header-title m-t-0 m-b-30\">Client </h4>
 
 
                     <p></p>  <p></p>  <p></p> <p></p>  <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p> <p></p>
@@ -259,6 +259,6 @@ class __TwigTemplate_618595def6473232d031ebdbb3c948df extends Template
     </div>
 
 
-{% endblock %}", "registration/index.html.twig", "C:\\Users\\MSI\\Desktop\\GitHub\\templates\\registration\\index.html.twig");
+{% endblock %}", "registration/index.html.twig", "C:\\Users\\MSI\\Desktop\\AgenceDeVoyage\\templates\\registration\\index.html.twig");
     }
 }

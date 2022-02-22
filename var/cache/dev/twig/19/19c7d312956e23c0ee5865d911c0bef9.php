@@ -171,11 +171,14 @@ class __TwigTemplate_821737516226440419e38ef99f6257df extends Template
                             <a href=\"";
         // line 154
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("registration");
-        echo "\" class=\"waves-effect\"><i class=\"mdi mdi-view-dashboard\"></i> <span> Gestion utilisateur </span> </a>
+        echo "\" class=\"waves-effect\"><i class=\"mdi mdi-view-dashboard\"></i> <span> Inscription client </span> </a>
                         </li>
 
                         <li>
-                            <a   class=\"waves-effect\"><i class=\"mdi mdi-view-dashboard\"></i> <span> Gestion Vol </span> </a>
+                            <a   href=\"";
+        // line 158
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("registration_admin");
+        echo "\" class=\"waves-effect\"><i class=\"mdi mdi-view-dashboard\"></i> <span> inscription admin </span> </a>
                         </li>
                         <li>
                             <a  href=\"";
@@ -442,7 +445,7 @@ class __TwigTemplate_821737516226440419e38ef99f6257df extends Template
 
     public function getDebugInfo()
     {
-        return array (  416 => 212,  404 => 49,  400 => 48,  396 => 47,  392 => 46,  387 => 44,  383 => 43,  379 => 42,  375 => 41,  371 => 40,  367 => 39,  363 => 38,  359 => 37,  355 => 36,  351 => 35,  347 => 34,  343 => 33,  339 => 32,  334 => 29,  332 => 28,  322 => 27,  309 => 23,  305 => 22,  301 => 21,  297 => 20,  289 => 15,  282 => 10,  280 => 9,  270 => 8,  251 => 5,  239 => 213,  237 => 212,  183 => 161,  173 => 154,  80 => 64,  65 => 51,  63 => 27,  60 => 26,  57 => 8,  53 => 5,  47 => 1,);
+        return array (  419 => 212,  407 => 49,  403 => 48,  399 => 47,  395 => 46,  390 => 44,  386 => 43,  382 => 42,  378 => 41,  374 => 40,  370 => 39,  366 => 38,  362 => 37,  358 => 36,  354 => 35,  350 => 34,  346 => 33,  342 => 32,  337 => 29,  335 => 28,  325 => 27,  312 => 23,  308 => 22,  304 => 21,  300 => 20,  292 => 15,  285 => 10,  283 => 9,  273 => 8,  254 => 5,  242 => 213,  240 => 212,  186 => 161,  180 => 158,  173 => 154,  80 => 64,  65 => 51,  63 => 27,  60 => 26,  57 => 8,  53 => 5,  47 => 1,);
     }
 
     public function getSourceContext()
@@ -600,11 +603,11 @@ class __TwigTemplate_821737516226440419e38ef99f6257df extends Template
                             <a  class=\"waves-effect\"><i class=\"mdi mdi-view-dashboard\"></i> <span> Gestion Produit </span> </a>
                         </li>
                         <li>
-                            <a href=\"{{ path('registration') }}\" class=\"waves-effect\"><i class=\"mdi mdi-view-dashboard\"></i> <span> Gestion utilisateur </span> </a>
+                            <a href=\"{{ path('registration') }}\" class=\"waves-effect\"><i class=\"mdi mdi-view-dashboard\"></i> <span> Inscription client </span> </a>
                         </li>
 
                         <li>
-                            <a   class=\"waves-effect\"><i class=\"mdi mdi-view-dashboard\"></i> <span> Gestion Vol </span> </a>
+                            <a   href=\"{{ path('registration_admin') }}\" class=\"waves-effect\"><i class=\"mdi mdi-view-dashboard\"></i> <span> inscription admin </span> </a>
                         </li>
                         <li>
                             <a  href=\"{{ path('app_login') }}\"  class=\"waves-effect\"><i class=\"mdi mdi-view-dashboard\"></i> <span> Login</span> </a>
@@ -661,6 +664,6 @@ class __TwigTemplate_821737516226440419e38ef99f6257df extends Template
         {% block body %}{% endblock %}
     </body>
 </html>
-", "base.html.twig", "C:\\Users\\MSI\\Desktop\\GitHub\\templates\\base.html.twig");
+", "base.html.twig", "C:\\Users\\MSI\\Desktop\\AgenceDeVoyage\\templates\\base.html.twig");
     }
 }

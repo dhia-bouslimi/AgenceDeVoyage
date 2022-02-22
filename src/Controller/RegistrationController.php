@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegistrationController extends AbstractController
 {
+
     private $passwordEncoder;
 
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
@@ -34,7 +35,42 @@ class RegistrationController extends AbstractController
             $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
 
             // Set their role
+
             $user->setRoles(['ROLE_USER']);
+
+
+            // Save
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('usersfront_list');
+        }
+
+        return $this->render('registration/index.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/registeration", name="registration_admin")
+     */
+    public function admin(Request $request)
+    {
+        $user = new User();
+
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Encode the new users password
+            $user->setPassword($this->passwordEncoder->encodePassword($user, $user->getPassword()));
+
+            // Set their role
+
+            $user->setRoles(['ROLE_ADMIN']);
+
 
             // Save
             $em = $this->getDoctrine()->getManager();
@@ -44,7 +80,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('users_list');
         }
 
-        return $this->render('registration/index.html.twig', [
+        return $this->render('registration/admin.html.twig', [
             'form' => $form->createView(),
         ]);
     }

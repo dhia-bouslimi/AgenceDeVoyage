@@ -15,6 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
+
 class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -22,6 +23,7 @@ class UserType extends AbstractType
         $builder
             ->add('email', EmailType::class,array('attr'=>array('class'=>'form-control')))
             ->add('name', TextType::class,array('attr'=>array('class'=>'form-control')))
+
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Password'],

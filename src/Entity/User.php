@@ -6,12 +6,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 
+
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("email")
+ *
+ * )
  */
 class User implements UserInterface
 {
@@ -23,7 +30,8 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=180, unique=true)
+     * @ORM\Column(type="string", length=180,unique="true")
+     * @Assert\Email()
      */
     private $email;
 
@@ -31,6 +39,7 @@ class User implements UserInterface
      * @ORM\Column(type="json")
      */
     private $roles = [];
+
 
     /**
      * @var string The hashed password
@@ -47,6 +56,7 @@ class User implements UserInterface
     {
         return $this->id;
     }
+
 
     public function getEmail(): ?string
     {

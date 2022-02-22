@@ -25,6 +25,15 @@ class UsersController extends AbstractController
         $res = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
         return $this->render('users/listUsers.html.twig',array('user'=>$res));
     }
+    /**
+     * @Route("/usersfront", name="usersfront_list")
+     */
+    public function affich(): Response
+    {
+
+        $res = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
+        return $this->render('users/listUsersfront.html.twig',array('user'=>$res));
+    }
 
 
     /**
@@ -115,6 +124,11 @@ class UsersController extends AbstractController
 
         ));
     }
+    /**
+     * @Route("/users", name="users_list")
+     */
+
+
     /**
      * @Route("/connexion", name="security_login")
      */
