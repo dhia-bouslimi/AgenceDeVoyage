@@ -1,3 +1,7 @@
+
+
+
+
 {% extends "base.html.twig" %}
 
 
@@ -5,74 +9,73 @@
 
 {% block body %}
 
+<div class="container rounded bg-white mt-5 mb-5">
 
 
+<br>
+
+<h2 style="color:red ; margin-left:20%;margin-top:5%">Reclamation</h2>
+<br><br>
+
+<table>
+
+  <tr> 
+  <th>id de réclamation </th>
+          <th>titre</th>
+          <th>contenu</th>
+          <th>date</th>
+             <th>show</th>
+                <th>Supprimer</th>
+                 <th>Reponse </th>
+
+
+     
+  </tr>
+  {% for Reclamation in Reclamations %}
+    <tr>
+     <td>{{Reclamation.id}}</td>
+    <td>{{Reclamation.titre}}</td>
+    <td>{{Reclamation.contenu}}</td>
+   <td> Ecrit le {{Reclamation.createdAt | date('d/m/Y')}} à {{Reclamation.createdAt | date('H:i')}} </td>
+   <td> <button class="btn btn-info" > <a href="{{ path('Reclamation', {'id': Reclamation.id}) }}" style="color:white">details</a></button></td>
+   <td> <button class="btn btn-danger" ><a href="{{ path('delete_Reclamation', {'id': Reclamation.id}) }}" style="color:white">Supprimer</a></button></td>
+     <td> <button class="btn btn-success" ><a href="{{ path('rep_add', {'id': Reclamation.id}) }}" style="color:white">reponse</a></button></td>
+  </tr>
+    {% endfor %}
+
+
+
+
+</table>
+<br><br><br>
+
+<button class="btn btn-warning" style="margin-left:50%"><a href="{{ path('reponse_list') }}" style="color:white">tous les reponses</a></button>
+
+
+<br><br>
+<br><br>
+<br><br>
 
 
 <style>
 table {
   border-collapse: collapse;
-  width: 85%;
+  width: 75%;
   margin-left:20%;
 
 }
 
 th, td {
-  padding: 8px;
+  padding: 6px;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
 
 tr:hover {background-color: coral;}
+
+
 </style>
-</head>
-<body>
-<br><br><br>
-<h2 style="color:orange" > les reclamations </h2>
-<br><br><br>
 
- 
-
-<div class="login-popup">
-      <div class="form-popup" id="popupForm">
-        <form action="/action_page.php" class="form-container">
-          <h2> ✔ bien enregistrer</h2><br>
-          <button type="button" class="btn cancel" onclick="closeorm()">voir la poste</button>
-
-          
-        
-              <div class="user_option">
-              <a href="{{path('reclamationadmin')}}" class="order_online">
-              <button  type="button" class="btn btn-info"> Cancel </button>
-              </a>
-              </div>
-        </form>
-      </div>
-    </div>
-
-
-<table>
-  <tr>
-       <th>titre</th>
-       <th>contenu</th>
-      <th>date</th>
-         <th>voir plus</th>
-       <th>supprimer</th>
-     
-  </tr>
-
-
-    <tr>
-    <td>baha</td>
-    <td>dd</td>
-     <td>dd</td>
-    <td><button  onclick="openForm()"  type="submit" class="btn btn-info">details</button></td>
-    <td><button  href="#" type="submit" class="btn btn-danger">supprimer</button></td>
-  </tr>
-
-
-</table>
-<br><br>
 
 
 
@@ -160,21 +163,6 @@ tr:hover {background-color: coral;}
     </style>
 
 
-
- <script>
-      function openForm() {
-        document.getElementById("popupForm").style.display = "block";
-      }
-
-      function closeForm() {
-        document.getElementById("popupForm").style.display = "none";
-      }
-    </script>
-
-
-
-</body>
-</html>
 
 
 {% endblock %}

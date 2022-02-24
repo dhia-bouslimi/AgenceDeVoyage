@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ReclamationRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=ReclamationRepository::class)
  */
@@ -18,12 +18,16 @@ class Reclamation
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
+     * @Assert\Length( min = 2, minMessage = "Merci de Vérifier Votre titre")
+     * @Assert\NotBlank(message="Le champs nom est obligatoire * ")
      */
     private $titre;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length( min = 10 , minMessage = "Merci de Vérifier Votre contenu")
+     * @Assert\NotBlank(message="Le champs contenu est obligatoire * ")
      */
     private $contenu;
 
