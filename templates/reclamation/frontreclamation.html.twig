@@ -1,0 +1,59 @@
+
+{% extends "base2.html.twig" %}
+
+{% form_theme formReclamation  'bootstrap_4_layout.html.twig' %}
+
+
+
+
+ {% block home %}
+
+
+ 		
+  	<div class="contact">
+	    	<div class="container">
+	 		<div class="row">
+				<div class="col-lg-4">
+				
+				</div>
+
+	          <div class="col-lg-7">
+	          <div class="contact_form_container" style="margin-top:30%;margin-left:-40%">
+		 				<div class="contact_title">Write your complaint</div>
+						 <br>
+				  {{ form_start (formReclamation)}}
+							        {{ form_row( formReclamation.titre,{'attr' : {'placeholder' : "saisir votre titre"}}) }}
+								    {{ form_row( formReclamation.contenu,{'attr' : {'placeholder' : "saisir votre contenu"}}) }}
+									  <button type="submit" class="btn btn-success"> Envoyer	</button>
+					{{ form_end (formReclamation)}}
+					</div>
+				</div>
+			</div>
+		</div>
+	  </div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
