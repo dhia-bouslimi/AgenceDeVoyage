@@ -18,10 +18,13 @@ class BilletType extends AbstractType
     {
         $builder
             ->add('type', TextType::class)
+
             ->add('prix', TextType::class)
+
             ->add('vol',EntityType::class,['class' =>Vol::class,
                 'choice_label' => 'id',
                 'label' => 'Vol_id'])
+
             ->add('Submit', SubmitType::class,
                 ['label' => 'Ajouter'])
         ;
