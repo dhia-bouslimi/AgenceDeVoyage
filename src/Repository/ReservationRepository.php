@@ -47,4 +47,37 @@ class ReservationRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+
+    //*****************CONFIRMATION RESERVATION***********
+    public function traiterres($idrs) {
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder(); // dql
+
+        $etat = $query->update('App\Entity\Reservation','rs')
+            ->set('rs.etat','?1')
+            ->where('rs.id = ?2')
+            ->setParameter(1,true)
+            ->setParameter(2,$idrs)
+            ->getQuery()->getResult();
+
+    }
+
+
+    //*************EFFACER ENCIEN RESERVATION************************
+
+    public function mise_a_joure()
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+           DELETE FROM `Reservation` WHERE DQUITTE < CURRENT_DATE ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+
+    }
+
 }

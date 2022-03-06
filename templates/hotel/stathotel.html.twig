@@ -1,0 +1,83 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container-fluid">
+
+
+
+
+
+
+
+                        <div class="row">
+                            <a href="{{ path('hotel_list') }}">
+                                <i class="fa fa-arrow-circle-left" style="font-size: 30px;"></i>
+
+                            </a>
+
+                        </div>
+
+
+                        <div class="row">
+
+
+
+                            <canvas id="monGraph" width="400" height="100" style="max-width: 1000px;max-height:600px;margin-left: 10%;"  ></canvas>
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js@3.1.1/dist/chart.min.js" integrity="sha256-lISRn4x2bHaafBiAb0H5C7mqJli7N0SH+vrapxjIz3k=" crossorigin="anonymous"></script>
+                            <script>
+                                let ctx = document.querySelector("#monGraph")
+                                let graph = new Chart(ctx, {
+                                    type: "pie",
+                                    data: {
+                                        labels: ['Hotels Disponible','Hotels non Disponible'],
+                                        datasets: [{
+                                            label: 'Nombre Hotel selon etat ',
+                                            data: {{ nbr|raw }},
+                                            backgroundColor: ['red', 'blue']
+                                        }]
+                                    },
+
+                                })
+
+                            </script>
+
+
+
+
+                        </div>
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

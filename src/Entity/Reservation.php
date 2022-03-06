@@ -6,6 +6,11 @@ use App\Repository\ReservationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 
 /**
  * @ORM\Entity(repositoryClass=ReservationRepository::class)
@@ -20,11 +25,17 @@ class Reservation
     private $id;
 
     /**
+     * @Assert\NotBlank(message="etat de hotel doit etre non vide")
      * @ORM\Column(type="string", length=255)
      */
     private $typePension;
 
     /**
+     * @Assert\Date()
+     * @Assert\Expression(
+     *     "this.getDarrive() < this.getDquitte()",
+     *     message="La date de depart ne doit pas être postérieure à la date d'arrive"
+     * )
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $darrive;
@@ -32,6 +43,11 @@ class Reservation
 
 
     /**
+     * @Assert\Date()
+     * @Assert\Expression(
+     *     "this.getDarrive() < this.getDquitte()",
+     *     message="La date d'arrive ne doit pas être antérieure à la date début"
+     * )
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dquitte;
@@ -43,14 +59,17 @@ class Reservation
     private $prixTotal;
 
     /**
-     * @ORM\OneToMany(targetEntity=Chambre::class, mappedBy="reservation", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity=Chambre::class, inversedBy="reservation")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $chambre;
 
-    public function __construct()
-    {
-        $this->chambre = new ArrayCollection();
-    }
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat;
+
+
 
     /**
      * @return mixed
@@ -91,7 +110,8 @@ class Reservation
     /**
      * @return mixed
      */
-    public function getDarrive()
+    public function getDarrive(): ?\DateTimeInterface
+
     {
         return $this->darrive;
     }
@@ -100,7 +120,7 @@ class Reservation
      * @param mixed $darrive
      * @return Reservation
      */
-    public function setDarrive($darrive)
+    public function setDarrive(?\DateTimeInterface $darrive) : self
     {
         $this->darrive = $darrive;
         return $this;
@@ -109,7 +129,8 @@ class Reservation
     /**
      * @return mixed
      */
-    public function getDquitte()
+    public function getDquitte() : ?\DateTimeInterface
+
     {
         return $this->dquitte;
     }
@@ -118,7 +139,7 @@ class Reservation
      * @param mixed $dquitte
      * @return Reservation
      */
-    public function setDquitte($dquitte)
+    public function setDquitte(?\DateTimeInterface $dquitte) : self
     {
         $this->dquitte = $dquitte;
         return $this;
@@ -142,32 +163,26 @@ class Reservation
         return $this;
     }
 
-    /**
-     * @return Collection<int, Chambre>
-     */
-    public function getChambre(): Collection
+    public function getChambre(): ?Chambre
     {
         return $this->chambre;
     }
 
-    public function addChambre(Chambre $chambre): self
+    public function setChambre(?Chambre $chambre): self
     {
-        if (!$this->chambre->contains($chambre)) {
-            $this->chambre[] = $chambre;
-            $chambre->setReservation($this);
-        }
+        $this->chambre = $chambre;
 
         return $this;
     }
 
-    public function removeChambre(Chambre $chambre): self
+    public function getEtat(): ?bool
     {
-        if ($this->chambre->removeElement($chambre)) {
-            // set the owning side to null (unless already changed)
-            if ($chambre->getReservation() === $this) {
-                $chambre->setReservation(null);
-            }
-        }
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

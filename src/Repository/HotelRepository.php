@@ -47,4 +47,49 @@ class HotelRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+
+    //*****************RECHERCHE*****************
+
+
+
+
+    public function findUser($valueemail,$order){
+        $em = $this->getEntityManager();
+        if($order=='DESC') {
+            $query = $em->createQuery(
+                'SELECT r FROM App\Entity\Hotel r   where r.nom like :nomm order by r.id DESC '
+            );
+            $query->setParameter('nomm', $valueemail . '%');
+        }
+        else{
+            $query = $em->createQuery(
+                'SELECT r FROM App\Entity\Hotel r   where r.nom like :nomm  order by r.id ASC '
+            );
+            $query->setParameter('nomm', $valueemail . '%');
+        }
+        return $query->getResult();
+    }
+
+//****************STAT*******************************
+
+
+
+
+    public function find_Nb_hotel_Par_Etat($etat){
+
+        $em = $this->getEntityManager();
+
+        $query = $em->createQuery(
+            'SELECT DISTINCT  count(h.id) FROM   App\Entity\Hotel h  where h.etat = :etat   '
+        );
+        $query->setParameter('etat', $etat);
+        return $query->getResult();
+    }
+
+
+
+
+
 }

@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups ;
+
 
 
 /**
@@ -19,17 +21,21 @@ class Hotel
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $id;
 
     /**
-     * @Assert\NotBlank(message="nom produit doit etre non vide")
+     * @Assert\NotBlank(message="nom hotel doit etre non vide")
      * @Assert\Length(
      *      min = 6,
      *      minMessage=" Entrer un nom au mini de 6 caracteres"
      *
      *     )
      * @ORM\Column(type="string", length=255)
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $nom;
 
@@ -39,6 +45,8 @@ class Hotel
      *     message = "L'e-mail n'est pas un e-mail valide"
      * )
      * @ORM\Column(type="string", length=255)
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $address;
 
@@ -51,6 +59,8 @@ class Hotel
      *      notInRangeMessage = "le nbr des etoiles doit etre valid",
      *     )
      * @ORM\Column(type="integer")
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $etoile;
 
@@ -58,6 +68,8 @@ class Hotel
      * @Assert\NotBlank(message="etat de hotel doit etre non vide")
      * @Assert\Choice({"Disponible", "non Disponible"})
      * @ORM\Column(type="string", length=255)
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $etat;
 
@@ -65,24 +77,31 @@ class Hotel
      * @Assert\NotBlank(message="le nombre de chambres doit etre non vide")
      *@Assert\PositiveOrZero
      * @ORM\Column(type="integer")
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $nbrChambre;
 
     /**
      * @Assert\NotBlank(message="le nombre de chambres doit etre non vide")
      * @ORM\Column(type="string", length=255)
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255,)
-     *
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $image;
 
 
     /**
      * @Assert\File(maxSize="6000000")
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $file;
 
