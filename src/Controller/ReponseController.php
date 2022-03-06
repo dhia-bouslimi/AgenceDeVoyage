@@ -21,16 +21,19 @@ class ReponseController extends AbstractController
      */
     public function addResponse (Reclamation $recl,Request $req, ReclamationRepository $rep, $id,SessionInterface $session)
     {   
-        $reclamation = $session->get("reclamation", $recl->getId());
+       
 
         $idReclamation=$rep->find($id); 
+        $reclamation = $idReclamation->getId();
         $reponses= new Reponse();
-       
+      
+
         $form=$this ->createForm(ReponseType::class,$reponses);
         $form->handleRequest($req);
 
         if($form->isSubmitted() && $form->isValid())
         {$em=$this->getDoctrine()->getManager();
+            $reponses->setReclamation($idReclamation);
             $em->persist($reponses);
             $em->flush();
             return $this->redirectToRoute('reponse_list');

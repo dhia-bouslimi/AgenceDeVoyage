@@ -23,9 +23,11 @@ class Reponse
     private $message;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToOne(targetEntity=Reclamation::class, inversedBy="reponse", cascade={"persist", "remove"})
      */
-    private $idReclamation;
+    private $reclamation;
+
+
 
     public function getId(): ?int
     {
@@ -43,16 +45,21 @@ class Reponse
 
         return $this;
     }
-
-    public function getIdReclamation(): ?int
+    
+    public function getReclamation(): ?Reclamation
     {
-        return $this->idReclamation;
+        return $this->reclamation;
     }
 
-    public function setIdReclamation(int $idReclamation): self
+    public function setReclamation(?Reclamation $reclamation): self
     {
-        $this->idReclamation = $idReclamation;
+        $this->reclamation = $reclamation;
 
         return $this;
     }
+
+   
+
+
+  
 }

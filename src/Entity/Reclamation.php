@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReclamationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
@@ -35,6 +37,13 @@ class Reclamation
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
+
+      /**
+     * @ORM\OneToOne(targetEntity=Reponse::class, mappedBy="reclamation", cascade={"persist", "remove"})
+     */
+    private $reponse;
+
+
 
     public function getId(): ?int
     {
@@ -76,4 +85,29 @@ class Reclamation
 
         return $this;
     }
+
+    public function getReponse(): ?Reponse
+    {
+        return $this->reponse;
+    }
+
+    public function setReponse(?Reponse $reponse): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($reponse === null && $this->reponse !== null) {
+            $this->reponse->setReclamation(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($reponse !== null && $reponse->getReclamation() !== $this) {
+            $reponse->setReclamation($this);
+        }
+
+        $this->reponse = $reponse;
+
+        return $this;
+    }
+
+  
+  
 }
