@@ -22,6 +22,7 @@
         <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
 
 
+
     {% endblock %}
 
     {% block javascripts %}
@@ -49,7 +50,6 @@
         <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
         <script src="{{ asset('assets/plugins/fileuploads/js/dropify.min.js') }}"></script>
-
 
 
     {% endblock %}
@@ -199,18 +199,18 @@
                     </li>
 
                     <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-view-list"></i> <span> Tables </span> <span class="menu-arrow"></span></a>
+                        <a href="{{path('listeChambre') }}"  class="waves-effect"><i class="mdi mdi-view-list"></i> <span> liste deschambres </span> <span class="menu-arrow"></span></a>
                         <ul class="list-unstyled">
-                            <li><a href="tables-basic.html">Basic Tables</a></li>
-                            <li><a href="tables-datatable.html">Data Table</a></li>
-                            <li><a href="tables-responsive.html">Responsive Table</a></li>
-                            <li><a href="tables-editable.html">Editable Table</a></li>
-                            <li><a href="tables-tablesaw.html">Tablesaw Table</a></li>
+                            <li><a  href="{{path('reservationADMIN') }}">Basic Tables</a></li>
+                            <li><a href="{{path('reservationADMIN') }}">Data Table</a></li>
+                            <li><a href="{{path('reservationADMIN') }}">Responsive Table</a></li>
+                            <li><a href="{{path('reservationADMIN') }}">Editable Table</a></li>
+                            <li><a href="{{path('reservationADMIN') }}">Tablesaw Table</a></li>
                         </ul>
                     </li>
 
                     <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-chart-donut-variant"></i><span> Charts </span> <span class="menu-arrow"></span></a>
+                        <a href="{{path('reservationADMIN') }}" class="waves-effect"><i class="mdi mdi-chart-donut-variant"></i><span> liste reservation</span> <span class="menu-arrow"></span></a>
                         <ul class="list-unstyled">
                             <li><a href="chart-flot.html">Flot Chart</a></li>
                             <li><a href="chart-morris.html">Morris Chart</a></li>
@@ -280,5 +280,7 @@
 
 </div>
 {% block body %}{% endblock %}
+
+
 </body>
 </html>
