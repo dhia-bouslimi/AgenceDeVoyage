@@ -4,14 +4,17 @@ namespace App\Controller;
 
 use App\Form\ReclamationType;
 use App\Entity\Reclamation;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ReclamationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ReclamationController extends AbstractController
+use App\Repository\ReponseRepository;
+
+
+class ReclamationController extends Controller
 {
 
 
@@ -33,9 +36,10 @@ class ReclamationController extends AbstractController
                   $Reclamation->setCreatedAt(new \DatetimeImmutable ());
                   $entityManager->persist($Reclamation);
                   $entityManager->flush();
-       
-                  
-                  return $this->redirectToRoute('frontListhotel', ['id' => $Reclamation ->getId()]); 
+                  $this->addFlash(
+                    'info',
+                  ' votre Reclamation a été envoyer',  
+              );
         }
            
         return $this->render('reclamation/frontreclamation.html.twig', [
@@ -69,6 +73,15 @@ class ReclamationController extends AbstractController
 
         $repo = $this ->getDoctrine()->getRepository(Reclamation::class);
         $Reclamations=$repo->findAll();
+        $Reclamations = $this->get('knp_paginator')->paginate(
+            // Doctrine Query, not results
+            $Reclamations,
+            // Define the page parameter
+            $request->query->getInt('page', 1),
+            // Items per page
+           3
+        ); 
+
 
         return $this->render('reclamation/reclamationadmin.html.twig', [
             'controller_name' => 'ReclamationController',
@@ -91,6 +104,10 @@ public function delete (int $id): Response
 
     return $this->redirectToRoute("reclamationadmin");
 }
+
+
+
+
 
 
 }

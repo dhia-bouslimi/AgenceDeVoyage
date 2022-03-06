@@ -47,4 +47,11 @@ class ReclamationRepository extends ServiceEntityRepository
         ;
     }
     */
-}
+
+    public function TriParage()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.contenu','ASC ')
+            ->getQuery()->getResult();
+    }
+} 

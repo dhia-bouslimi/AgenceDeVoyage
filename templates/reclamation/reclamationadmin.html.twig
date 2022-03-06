@@ -13,7 +13,24 @@
 <h2 style="color:red ; margin-left:20%;margin-top:5%">Reclamation</h2>
 <br><br>
 
-<table>
+
+<div class="card-body">
+                <table>
+                    <td style="  vertical-align:top ; ">
+                        <table style="margin-right: 20px ; ">
+                            <tr>
+                                <th>
+                                    <select value="sortselect" name="sortselect" class="input_back"
+                                            style="width: 125px;">
+                                        <option value="Triage">contenu</option>
+                                        
+                                    </select>
+                                <th><a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                       style="height: 35px; padding: 6px 15px; " href="{{ path('reclamationadmin') }}">Trier</a></th>
+                            </tr>
+                        </table>
+                    </td>
+                      <table>
 
   <tr> 
   <th>id de réclamation </th>
@@ -23,8 +40,7 @@
              <th>show</th>
                 <th>Supprimer</th>
                  <th>Reponse </th>
-
-
+       <th>{{ knp_pagination_render(Reclamations) }}</th>
      
   </tr>
   {% for Reclamation in Reclamations %}
@@ -43,6 +59,7 @@
 
 
 </table>
+
 <br><br><br>
 
 <button class="btn btn-warning" style="margin-left:50%"><a href="{{ path('reponse_list') }}" style="color:white">tous les reponses</a></button>
