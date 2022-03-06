@@ -2,32 +2,52 @@
 <html lang="en">
 <head>
     {% block stylesheets %}
-    <title>Travelix</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Travelix Project">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{{ asset('styles/bootstrap4/bootstrap.min.css')}}
-">
+
+        <title>Travelix</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Travelix Project">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="{{ asset('styles/bootstrap4/bootstrap.min.css')}}">
 
 
 
 
         <link href="{{ asset('plugins/font-awesome-4.7.0/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.css')}}
-">
-    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.theme.default.css')}}
-">
-    <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/animate.css')}}
-">
-    <link rel="stylesheet" type="text/css" href="{{ asset('styles/main_styles.css')}}
-">
-    <link rel="stylesheet" type="text/css" href="{{ asset('styles/responsive.css')}}
-">
+  
+
+  
+ 
+  
 
 
         <!-- Load Flashy default CSS -->
         <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/owl.theme.default.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('plugins/OwlCarousel2-2.2.1/animate.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('styles/main_styles.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('styles/responsive.css')}}">
+    {% endblock %}
+
+
+
+    {% block javascripts %}
+        <!-- jQuery  -->
+
+
+
+
+        <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{asset('styles/bootstrap4/popper.js')  }}"></script>
+        <script src="{{ asset('styles/bootstrap4/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('plugins/OwlCarousel2-2.2.1/owl.carousel.js') }}"></script>
+        <script src="{{ asset('plugins/easing/easing.js') }}"></script>
+        <script src="{{ asset('js/custom.js') }}"></script>
+
+
+
+
     {% endblock %}
 </head>
 
@@ -70,7 +90,7 @@
                 <div class="row">
                     <div class="col main_nav_col d-flex flex-row align-items-center justify-content-start">
                         <div class="logo_container">
-                            <div class="logo"><a href="#"><img src="images/logo.png" alt="">travelix</a></div>
+                            <div class="logo"><a href="#"><img src="images/logo.png" alt="">GUIDINI</a></div>
                         </div>
                         <div class="main_nav_container ml-auto">
                             <ul class="main_nav_list">
@@ -139,6 +159,7 @@
     </div>
 
     {% block home %}
+
 
     <!-- Home -->
     <div class="home">
@@ -493,6 +514,7 @@
         </div>
     </div>
 
+    {% endblock %}
 
     {% endblock %}
 
@@ -669,6 +691,7 @@
 "></script>
 <script src="{{ asset('js/custom.js')}}
 "></script>
+
 
 
 <!-- Flashy depends on jQuery -->
