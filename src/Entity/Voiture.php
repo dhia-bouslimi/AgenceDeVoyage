@@ -25,7 +25,7 @@ class Voiture
      * @Assert\NotBlank(message="la Serie doit etre non vide")
      * @Assert\Length(
      *      min = 6,
-     *      minMessage=" Entrer une serie au mini de 10 caracteres"
+     *      minMessage=" Entrer une serie au mini de 6 caracteres"
      *
      *     )
      * @ORM\Column(type="string", length=255)
@@ -35,8 +35,8 @@ class Voiture
     /**
      * @Assert\NotBlank(message="la marque doit etre non vide")
      * @Assert\Length(
-     *      min = 6,
-     *      minMessage=" Entrer une marque au mini de 10 caracteres"
+     *      min = 3,
+     *      minMessage=" Entrer une marque au mini de 3 caracteres"
      *
      *     )
      * @ORM\Column(type="string", length=255)
@@ -46,8 +46,8 @@ class Voiture
     /**
      * @Assert\NotBlank(message="le model doit etre non vide")
      * @Assert\Length(
-     *      min = 7,
-     *      minMessage=" Entrer un model au mini de 10 caracteres"
+     *      min = 2,
+     *      minMessage=" Entrer un model au mini de 2 caracteres"
      *
      *     )
      * @ORM\Column(type="string", length=255)
@@ -57,7 +57,7 @@ class Voiture
      * @Assert\NotBlank(message="la description doit etre non vide")
      * @Assert\Length(
      *      min = 7,
-     *      max = 100,
+     *      max = 1000,
      *      minMessage = "doit etre >=7 ",
      *      maxMessage = "doit etre <=100" )
      * @ORM\Column(type="string", length=1000)

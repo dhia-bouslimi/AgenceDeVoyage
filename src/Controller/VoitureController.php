@@ -32,14 +32,12 @@ class VoitureController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
 
-            //upload image
-            $uploadFile = $form['image']->getData(); // valeur ta3 image (ely how name ta3ha)
-            $filename = md5(uniqid()) . '.' .$uploadFile->guessExtension();//crypté image
-
-            $uploadFile->move($this->getParameter('kernel.project_dir').'/public/uploads/produit_image',$filename);
-
-
-            $voiture->setImage($filename);
+            $voiture=$form->getData();
+            // $file=$admin->getImage();
+            $file = $form->get('image')->getData();
+            $fileName=md5(uniqid()).'.'.$file->guessExtension();
+            $file->move($this->getParameter('upload_directory'), $fileName);
+            $voiture->setImage($fileName);
             /*
              * Add product
              */
@@ -61,14 +59,20 @@ class VoitureController extends AbstractController
      * Method({"GET", "POST"})
      */
     public function edit(\Symfony\Component\HttpFoundation\Request  $request, $id) {
-        $voiture = new voiture();
-        $vol = $this->getDoctrine()->getRepository(voiture::class)->find($id);
         $em= $this->getDoctrine()->getManager();
         $voiture = $em->getRepository(voiture::class)->find($id);
         $form = $this->createForm(voitureType::class,$voiture);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            //upload image
+            $uploadFile = $form['image']->getData(); // valeur  image
+            $filename = md5(uniqid()) . '.' .$uploadFile->guessExtension();//crypter image
+
+            $uploadFile->move($this->getParameter('kernel.project_dir').'/public/uploads/produit_image',$filename);
+
+
+            $voiture->setImage($filename);
             $em->flush();
 
             return $this->redirectToRoute('voiture_list');
@@ -95,7 +99,7 @@ class VoitureController extends AbstractController
         return $this->redirectToRoute('voiture_list');
     }
     /**
-     * @Route("/detailvoiture/{id}", name="detail")
+     * @Route("/detailvoiture/{id}", name="detail_voiture")
      */
     public function detailvoiture(\Symfony\Component\HttpFoundation\Request $req, $id)
     {

@@ -86,6 +86,9 @@
                             {{ form_errors(f.couleur, {'attr': {'class': 'text-danger'}}) }}
 
                         </div>
+                        {{ form_widget(f.image, {'attr': {'class': 'dropify','data-height':'300'}}) }}
+
+
                         <div class="form-group">
                             {{ form_widget(f.Submit,{'attr':{'class':'btn btn-pink btn-rounded w-md waves-effect waves-light m-b-5'}}) }}
                         </div>
