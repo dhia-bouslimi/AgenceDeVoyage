@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<component type="Form" name="form 1" cloudDestinationProperty="form 1" >
-  <component type="Label" name="Label" cloudDestinationProperty="Label" text="Label" >
-  </component>
-  <component type="Button" name="Button" cloudDestinationProperty="Button" text="Button" >
-  </component>
-</component>
