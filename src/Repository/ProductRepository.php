@@ -47,4 +47,16 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    //METIER 3
+    public function  getProduitsEvaluees() {
+        $em = $this->getEntityManager();
+        $query = $em->createQueryBuilder(); // dql
+        $query->select('p.id ,p.note')
+            ->from( 'App\Entity\Product','p')
+            ->orderBy('p.note','DESC')
+            ->setMaxResults(5);
+        $res = $query->getQuery();
+        return $res->execute();
+    }
 }
