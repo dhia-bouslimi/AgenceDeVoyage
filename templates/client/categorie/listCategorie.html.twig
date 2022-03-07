@@ -1,0 +1,44 @@
+{% extends 'base1.html.twig' %}
+
+
+{% block body %}
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url({{ asset('assetClient/images/backg.jpg') }});" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+
+
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row d-flex">
+
+                {% for c in categories %}
+
+
+                    <div class="col-md-4 d-flex ftco-animate">
+                        <div class="blog-entry justify-content-end">
+                            <a href="{{ path('show_products',{'id':c.getCategoryId()}) }}" class="block-20" style="background-image: url({{ asset('assetClient/images/image_1.jpg') }});">
+                            </a>
+                            <div class="text mt-3 float-right d-block">
+
+                                <img src="{{ asset('uploads/produit_image/'~c.image) }}" width="200" height="150">
+                                <h3 class="search_tab d-flex flex-row align-items-center justify-content-lg-center justify-content-start active"><a href="{{ path('show_products',{'id':c.getCategoryId()}) }}">{{ c.name }}</a></h3>
+
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+
+            </div>
+            <div class="row mt-5">
+                <div class="col text-center">
+
+            </div>
+        </div>
+    </section>
+{% endblock %}
