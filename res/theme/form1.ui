@@ -1,0 +1,23 @@
+<<<<<<< Updated upstream
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="Form" name="form1" cloudDestinationProperty="form1" >
+  <component type="SpanLabel" name="SpanLabel" cloudDestinationProperty="SpanLabel" >
+  </component>
+  <component type="Label" name="Label" cloudDestinationProperty="Label" text="hello my world" >
+  </component>
+  <component type="Button" name="Button" cloudDestinationProperty="Button" text="ok" >
+  </component>
+</component>
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="Form" name="form1" cloudDestinationProperty="form1" >
+  <component type="SpanLabel" name="SpanLabel" cloudDestinationProperty="SpanLabel" >
+  </component>
+  <component type="Label" name="Label" cloudDestinationProperty="Label" text="hello my world" >
+  </component>
+  <component type="Button" name="Button" cloudDestinationProperty="Button" text="ok" >
+  </component>
+</component>
+>>>>>>> Stashed changes
