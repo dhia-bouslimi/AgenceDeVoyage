@@ -2,22 +2,21 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Repository\AdminRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
-
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
- * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass=AdminRepository::class)
+ * @ORM\Table(name="`admin`")
  * @UniqueEntity(
  * fields = {"email"},
  * message ="Email déja utilisé !"
  * )
  */
-class User
+class Admin
 {
     /**
      * @ORM\Id
@@ -34,7 +33,7 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Last name is required")
+     * @Assert\NotBlank(message="Last nname is required")
      */
     private $fname;
 
@@ -53,25 +52,18 @@ class User
     private $num;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank(message="Email is required")
      * @Assert\Email(message = "The email '{{ value }}' is not a valid email")
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank(message="Password is required")
      * @Assert\Length(min="6",minMessage="Votre mot de passe doit contenir au min 6 caractères")
      */
     private $password;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     *@Assert\NotBlank(message="Confirmpassword is required")
-     *@Assert\EqualTo(propertyPath="password",message="Vérifier votre password")
-     */
-    private $confirmpassword;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -82,7 +74,7 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Il faut insérer une image")
+     *  @Assert\NotBlank(message="Il faut insérer une image")
      */
     private $image;
 
@@ -144,7 +136,7 @@ class User
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -156,21 +148,9 @@ class User
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(?string $password): self
     {
         $this->password = $password;
-
-        return $this;
-    }
-
-    public function getConfirmpassword(): ?string
-    {
-        return $this->confirmpassword;
-    }
-
-    public function setConfirmpassword(string $confirmpassword): self
-    {
-        $this->confirmpassword = $confirmpassword;
 
         return $this;
     }

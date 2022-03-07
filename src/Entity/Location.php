@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\LocationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=LocationRepository::class)
@@ -19,11 +20,19 @@ class Location
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\Expression(
+     *     "this.getDateDebut() < this.getDateFin()",
+     *     message="La date de depart ne doit pas être postérieure à la date d'arrive"
+     * )
      */
     private $date_debut;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\Expression(
+     *     "this.getDateDebut() < this.getDateFin()",
+     *     message="La date d'arrive ne doit pas être antérieure à la date début"
+     * )
      */
     private $date_fin;
 
