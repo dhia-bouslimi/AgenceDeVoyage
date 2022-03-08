@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Avis{% endblock %}
+
+{% block body %}
+   <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="content-page">
+    <!-- Start content -->
+    <div class="content">
+    <div class="container-fluid">
+
+
+    <div class="row">
+<a href="{{ path('volList') }}">
+    <i class="fa fa-arrow-circle-left" style="font-size: 40px;"></i>
+            <div class="col-md-12"  style="display: flex; justify-content: center;align-items:center;width: 100%" >
+                <div class="card-box">
+                    <div class="dropdown pull-right">
+                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                            <i class="mdi mdi-dots-vertical"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item">Another action</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item">Something else</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
+                        </div>
+                    </div>
+
+                    <h4 class="header-title m-t-0 m-b-30">detail Avis</h4>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ avi.id }}</td>
+            </tr>
+            <tr>
+                <th>AvisScore</th>
+                <td>{{ avi.avisScore }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ avi.description }}</td>
+            </tr>
+            <tr>
+                <th>crée par</th>
+                {# <td>{{ avi.utilisateur.username }}</td> #}
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_avis_index') }}">back to list</a>
+
+    <a href="{{ path('app_avis_edit', {'id': avi.id}) }}">edit</a>
+
+    {{ include('avis/_delete_form.html.twig') }}
+{% endblock %}

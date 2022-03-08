@@ -91,9 +91,15 @@ class Hotel
      */
     private $chambre;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="hotel", orphanRemoval=true)
+     */
+    private $avis;
+
     public function __construct()
     {
         $this->chambre = new ArrayCollection();
+        $this->avis = new ArrayCollection();
     }
 
 
@@ -267,7 +273,40 @@ class Hotel
         return $this;
     }
 
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
 
+    public function addAvi(Avis $avi): self
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis[] = $avi;
+            $avi->setHotel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getHotel() === $this) {
+                $avi->setHotel(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->nom;
+    }
 
 
 }

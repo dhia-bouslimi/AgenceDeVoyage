@@ -17,8 +17,25 @@ class User
      */
     private $id;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Avis::class, inversedBy="utilisateur")
+     */
+    private $avis;
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getAvis(): ?Avis
+    {
+        return $this->avis;
+    }
+
+    public function setAvis(?Avis $avis): self
+    {
+        $this->avis = $avis;
+
+        return $this;
     }
 }
