@@ -1,0 +1,298 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+    <!-- ============================================================== -->
+    <!-- Start right Content here -->
+    <!-- ============================================================== -->
+    <div class="content-page">
+        <!-- Start content -->
+        <div class="content">
+            <div class="container-fluid">
+
+
+
+            <div class="row">
+
+                    <div class="col-12">
+                        <div class="card-box">
+                            <div class="dropdown pull-right">
+                                <a href="#" class="dropdown-toggle arrow-none card-drop" data-toggle="dropdown" aria-expanded="false">
+                                    <i class="mdi mdi-dots-vertical"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item">Action</a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item">Another action</a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item">Something else</a>
+                                    <!-- item-->
+                                    <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
+                                </div>
+                            </div>
+                            <h4 class="m-t-0 header-title">
+                                Liste des Hotels</h4>
+                            <p class="text-muted font-14 m-b-20">
+
+
+
+
+
+                            <div id="divs" class="app-search">
+                                <div class="row">
+                                <input style="padding-right: 20px" class="form-control" type="text" id="search" placeholder="Rechercher par Nom...🔎">
+
+                                <a  style="margin-top: 23px;margin-left: 20px;margin-right: 10px" class="tg-btn" href="" id="idup">ID (UP) ⬆️</a>
+                                <a style="margin-top: 23px" class="tg-btn" href="" id="iddown">ID (DOWN) ⬇️</a>
+                                </div>
+                            </div>
+
+
+
+                            <div style="margin-top:30px;margin-left: 12px;" class="row">
+
+                                    <a href="{{ path('ajoutHotel') }}">
+                                        <button type="button" class="btn btn-purple btn-rounded w-md waves-effect waves-light m-b-5">Ajouter Hotel</button>                            </p>
+
+                                    </a>
+
+                                    <a  style="margin-left: 10px;margin-right: 10px"  href="{{ path('hotelstat') }}">
+                                     <button type="button" class="btn btn-warning btn-rounded w-md waves-effect waves-light m-b-5">Statistique de disponibilite</button>                            </p>
+
+
+                                       </a>
+
+
+
+                                <a  href="{{ path('export') }}">
+
+                                    <button type="button" class="btn btn-pink btn-rounded w-md waves-effect waves-light m-b-5">Exporter Excel</button>                            </p>
+
+
+                                </a>
+
+
+
+                            </div>
+
+
+
+
+                            <table id="t" class="table">
+                                <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>adresse</th>
+                                    <th>etat</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                    <th>details</th>
+
+                                </tr>
+                                </thead>
+                                <tbody id="all">
+                                {% for p in  hotels %}
+                                    <tr>
+
+                                        <td>{{ p.nom }}</td>
+                                        <td>{{ p.address }}</td>
+                                        <td>{{ p.etat }}</td>
+                                        <td><a href="{{ path('modification',{'id':p.id}) }}"><i class="fa fa-pencil" style="color:#ff5b5b;font-size:20px"></i> </a> </td>
+
+                                        <td><a href="{{ path('suppression',{'id':p.id}) }}"><i class="fa fa-trash" style="color:#00aff0;font-size:20px"></i> </a> </td>
+                                        <td><a href="{{ path('detailhotel',{'id':p.id}) }}"><i class="fa fa-list" style="color:#00aff0;font-size:20px"></i> </a> </td>
+
+                                    </tr>
+
+
+                                {% endfor %}
+                                </tbody>
+
+                                <tbody id="search">
+
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center m-4">
+
+            {{ knp_pagination_render(hotels,'paginator.html.twig') }}
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $( document ).ready(function() {
+
+        /*begin rechercher avancee multicritéres selon nom et lieux*/
+        $("#divs").keyup(function(e){
+            /* La variable value va prendre la valeur insérer dans le champ de texte afin d’effectuer la recherche */
+            var value = $("#search").val();
+            if(value.length >= 1 || value.length == 0  )
+            {
+
+                //    alert(value);
+                /* Ajax est lancé lors du remplissage du champ texte dont l’id est « search » pour faire la recherche */
+                $.ajax({
+                    /* l’url est une chaine de caractères contenant l’adresse où la requête est envoyée */
+                    url : "{{ path('search_user') }}",
+                    /* La méthode utilisée pour transférer les données est GET */
+                    type : 'GET',
+                    /*Ici search value va prendre la chaine entrée par un utilisateur dans la zone de recherche et sera placée après l’url */
+                    data: {
+                        'searchValue' : value
+                    },
+                    /*Cette fonction permet de vider le contenu du tableau pour recevoir le nouveau contenu*/
+                    success : function(retour){
+                        if(retour){
+                            $('#t tbody#search').empty();
+                            $.each(JSON.parse(retour), function(i, obj) {
+                                $('#t tbody#all').hide();
+                                $('#t tbody#search').append('<tr><td>    '+obj.nom+'  </td> <td>'+obj.address+' </td>      <td>'+obj.etat+' </td>    <td> <a href="/modifier_hotel/'+obj.id+'"><i class="fa fa-pencil" style="color:#ff5b5b;font-size:20px"></i> </a> </td> <td> <a href="/supprimer_hotel/'+obj.id+'"><i class="fa fa-trash" style="color:#00aff0;font-size:20px"></i></a> </td> <td> <a href="/detail_hotel/'+obj.id+'"><i class="fa fa-list" style="color:#00aff0;font-size:20px"></i></a> </td>  </tr>');
+                            });
+                        }
+                        else
+                        {
+
+                            $('#t tbody#all').show();
+                            $('#t tbody#search').empty();
+                            $('#t tbody#search').fadeIn('fast');
+
+                        }
+                    },
+                });
+                return false;
+            }
+        });
+        /*end rechercher avancee multicritéres selon sujet et staus*/
+
+
+        /*begin trie up selon id*/
+        $("#idup").click(function(e){
+            /* La variable value va prendre la valeur insérer dans le champ de texte afin d’effectuer la recherche */
+            var value = $("#search").val();
+            var value3 ="ASC";
+
+            //    alert(value);
+            /* Ajax est lancé lors du remplissage du champ texte dont l’id est « search » pour faire la recherche */
+            $.ajax({
+                /* l’url est une chaine de caractères contenant l’adresse où la requête est envoyée */
+                url : "{{ path('search_user') }}",
+                /* La méthode utilisée pour transférer les données est GET */
+                type : 'GET',
+                /*Ici search value va prendre la chaine entrée par un utilisateur dans la zone de recherche et sera placée après l’url */
+                data: {
+                    'searchValue' : value,
+                    'orderid': value3
+                },
+                /*Cette fonction permet de vider le contenu du tableau pour recevoir le nouveau contenu*/
+                success : function(retour){
+                    if(retour){
+                        $('#t tbody#search').empty();
+                        $.each(JSON.parse(retour), function(i, obj) {
+                            $('#t tbody#all').hide();
+                            $('#t tbody#search').append('<tr><td>    '+obj.nom+'  </td> <td>'+obj.address+' </td>      <td>'+obj.etat+' </td>    <td> <a href="/modifier_hotel/'+obj.id+'"><i class="fa fa-pencil" style="color:#ff5b5b;font-size:20px"></i> </a> </td> <td> <a href="/supprimer_hotel/'+obj.id+'"><i class="fa fa-trash" style="color:#00aff0;font-size:20px"></i></a> </td> <td> <a href="/detail_hotel/'+obj.id+'"><i class="fa fa-list" style="color:#00aff0;font-size:20px"></i></a> </td>  </tr>');
+                        });
+                    }
+                    else
+                    {
+                        $('#t tbody#all').show();
+                        $('#t tbody#search').empty();
+                        $('#t tbody#search').fadeIn('fast');
+                    }
+                },
+            });
+            return false;
+
+        });
+        /*end trie up selon id*/
+
+        /*begin trie down selon id*/
+        $("#iddown").click(function(e){
+            /* La variable value va prendre la valeur insérer dans le champ de texte afin d’effectuer la recherche */
+            var value = $("#search").val();
+            var value3 ="DESC";
+
+            //    alert(value);
+            /* Ajax est lancé lors du remplissage du champ texte dont l’id est « search » pour faire la recherche */
+            $.ajax({
+                /* l’url est une chaine de caractères contenant l’adresse où la requête est envoyée */
+                url : "{{ path('search_user') }}",
+                /* La méthode utilisée pour transférer les données est GET */
+                type : 'GET',
+                /*Ici search value va prendre la chaine entrée par un utilisateur dans la zone de recherche et sera placée après l’url */
+                data: {
+                    'searchValue' : value,
+                    'orderid': value3
+                },
+                /*Cette fonction permet de vider le contenu du tableau pour recevoir le nouveau contenu*/
+                success : function(retour){
+                    if(retour){
+                        $('#t tbody#search').empty();
+                        $.each(JSON.parse(retour), function(i, obj) {
+                            $('#t tbody#all').hide();
+                            $('#t tbody#search').append('<tr><td>    '+obj.nom+'  </td> <td>'+obj.address+' </td>      <td>'+obj.etat+' </td>    <td> <a href="/modifier_hotel/'+obj.id+'"><i class="fa fa-pencil" style="color:#ff5b5b;font-size:20px"></i> </a> </td> <td> <a href="/supprimer_hotel/'+obj.id+'"><i class="fa fa-trash" style="color:#00aff0;font-size:20px"></i></a> </td> <td> <a href="/detail_hotel/'+obj.id+'"><i class="fa fa-list" style="color:#00aff0;font-size:20px"></i></a> </td>  </tr>');
+                        });
+                    }
+                    else
+                    {
+                        $('#t tbody#all').show();
+                        $('#t tbody#search').empty();
+                        $('#t tbody#search').fadeIn('fast');
+                    }
+                },
+            });
+            return false;
+
+        });
+        /*end trie down selon id*/
+    });
+</script>
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
