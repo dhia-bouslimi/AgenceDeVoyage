@@ -19,10 +19,24 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
+use Symfony\Component\Security\Core\Security;
+use App\Entity\Avis;
+use App\Form\AvisType;
+use App\Repository\AvisRepository;
 
 class HotelController extends AbstractController
 {
+
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+       $this->security = $security;
+    }
+
+
+
     /**
      * @Route("/hotel", name="hotel")
      */
@@ -338,6 +352,8 @@ class HotelController extends AbstractController
                                  Request $request
     )
     {
+        $user = $this->security->getUser();
+
         $em = $this->getDoctrine()->getManager();
 
         $reservation = $em->getRepository(Reservation::class)->find($id);
@@ -346,16 +362,45 @@ class HotelController extends AbstractController
 
         $hotel = $em->getRepository(Hotel::class)->find($chambres->getHotel());
 
+        // avis form
 
+        $repoAvis = $this->getDoctrine()->getRepository(Avis::class);
+        $currentAvis = $repoAvis->checkIfUserRatedHotel($user, $hotel);
+        if($currentAvis == null )
+        {
+            $avi = new Avis();
+            $avi->setUtilisateur($user);
+            $avi->setHotel($hotel);
+    
+            $form = $this->createForm(AvisType::class, $avi);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->persist($avi);
+                $this->getDoctrine()->getManager()->flush();
+    
+                return $this->redirectToRoute('detailsreservation', ['id' => $id], Response::HTTP_SEE_OTHER);
+            }
 
+            return $this->render('hotel/frontDetailsReservation.html.twig',
+            array('reservation'=>$reservation,
+                  'chambres'=>$chambres,
+                  'hotel'=>$hotel ,
+                  'currentAvis' => $currentAvis,
+                  'form' => $form->createView()
+            ));
+        } else 
+        {
 
-
+        }
+       
        // var_dump($hotel); die();
 
         return $this->render('hotel/frontDetailsReservation.html.twig',
             array('reservation'=>$reservation,
                   'chambres'=>$chambres,
-                  'hotel'=>$hotel,
+                  'hotel'=>$hotel ,
+                  'currentAvis' => $currentAvis
             ));
     }
 

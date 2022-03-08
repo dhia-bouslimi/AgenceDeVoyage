@@ -51,11 +51,6 @@
         <script src="{{ asset('assets/plugins/fileuploads/js/dropify.min.js') }}"></script>
 
 
-<<<<<<< HEAD
-
-=======
-    {% endblock %}
->>>>>>> origin/finale-integer
 </head>
 <body class="fixed-left">
 
@@ -191,11 +186,7 @@
                     </li>
 
                     <li>
-<<<<<<< HEAD
-                        <a href="typography.html" class="waves-effect"><i class="mdi mdi-format-font"></i> <span> Gestion shop</span> </a>
-=======
                         <a href="{{ path('product_listaymen') }}" class="waves-effect"><i class="mdi mdi-format-font"></i> <span>Gestion Produit</span> </a>
->>>>>>> origin/finale-integer
                     </li>
 
                     <li class="has_sub">
@@ -205,61 +196,17 @@
                         </ul>
                     </li>
 
-<<<<<<< HEAD
-                    <li class="has_sub">
-                        <a  href="{{ path('hotel_list') }}" class="waves-effect"><i class="mdi mdi-texture"></i><span class="badge badge-warning pull-right">7</span><span> Gestion des hotels </span> </a>
-                        <ul class="list-unstyledtyled">
-                            <li><a href="form-elements.html">General Elements</a></li>
-                            <li><a href="form-advanced.html">Advanced Form</a></li>
-                            <li><a href="form-validation.html">Form Validation</a></li>
-                            <li><a href="form-wizard.html">Form Wizard</a></li>
-                            <li><a href="form-fileupload.html">Form Uploads</a></li>
-                            <li><a href="form-wysiwig.html">Wysiwig Editors</a></li>
-                            <li><a href="form-xeditable.html">X-editable</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="has_sub">
-                        <a href="{{path('listeChambre') }}" class="waves-effect"><i class="mdi mdi-view-list"></i> <span> liste deschambres </span> <span class="menu-arrow"></span></a>
-                        <ul class="list-unstyled">
-                            <li><a href="tables-basic.html">Basic Tables</a></li>
-                            <li><a href="tables-datatable.html">Data Table</a></li>
-                            <li><a href="tables-responsive.html">Responsive Table</a></li>
-                            <li><a href="tables-editable.html">Editable Table</a></li>
-                            <li><a href="tables-tablesaw.html">Tablesaw Table</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-chart-donut-variant"></i><span> Charts </span> <span class="menu-arrow"></span></a>
-                        <ul class="list-unstyled">
-                            <li><a href="chart-flot.html">Flot Chart</a></li>
-                            <li><a href="chart-morris.html">Morris Chart</a></li>
-                            <li><a href="chart-chartist.html">Chartist Charts</a></li>
-                            <li><a href="chart-chartjs.html">Chartjs Chart</a></li>
-                            <li><a href="chart-other.html">Other Chart</a></li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <a href="{{path('reclamationadmin') }}"  class="waves-effect"><i class="mdi mdi-calendar"></i><span> Reclamtions et avis </span></a>
-                    </li>
-
-                    <li>
-                        <a href="inbox.html" class="waves-effect"><i class="mdi mdi-email"></i><span class="badge badge-purple pull-right">New</span><span> Mail </span></a>
-=======
 
                     <li>
                         <a href="{{ path('lignecommande') }}" class="waves-effect"><i class="mdi mdi-calendar"></i><span>Gestion Ligne commande</span></a>
                     </li>
 
                     <li>
-                        <a href="inbox.html" class="waves-effect"><i class="mdi mdi-email"></i><span class="badge badge-purple pull-right">New</span><span>Gestion Reclamation </span></a>
->>>>>>> origin/finale-integer
+                        <a href="{{ path('reclamationadmin') }}" class="waves-effect"><i class="mdi mdi-email"></i><span class="badge badge-purple pull-right">New</span><span>Gestion Reclamation </span></a>
                     </li>
 
                     <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><i class="mdi mdi-google-pages"></i><span>Gestion Avis</span> <span class="menu-arrow"></span></a>
+                        <a href="{{ path('app_avis_index') }}" class="waves-effect"><i class="mdi mdi-google-pages"></i><span>Gestion Avis</span> <span class="menu-arrow"></span></a>
                         <ul class="list-unstyled">
                             <li><a href="page-starter.html">Starter Page</a></li>
                             <li><a href="page-login.html">Login</a></li>
@@ -300,12 +247,7 @@
 
 </div>
 {% block body %}{% endblock %}
-<<<<<<< HEAD
     {% block javascripts %}
     {% endblock %}
-=======
-
-
->>>>>>> origin/finale-integer
 </body>
 </html>

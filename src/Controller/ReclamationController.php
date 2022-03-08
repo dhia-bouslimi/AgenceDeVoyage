@@ -12,11 +12,19 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Repository\ReponseRepository;
+use Symfony\Component\Security\Core\Security;
 
 
 class ReclamationController extends Controller
 {
 
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+       $this->security = $security;
+    }
 
     /**
      * @Route("/reclamation", name="frontreclamation")
@@ -24,6 +32,7 @@ class ReclamationController extends Controller
     public function create (Request $request ,EntityManagerInterface $entityManager)
     { 
  
+        $user = $this->security->getUser();
         $Reclamation = new Reclamation ();
 
         $form = $this ->createForm(ReclamationType::class,$Reclamation);
@@ -34,6 +43,7 @@ class ReclamationController extends Controller
                 
                 if ($form->isSubmitted() && $form->isValid()) {
                   $Reclamation->setCreatedAt(new \DatetimeImmutable ());
+                  $Reclamation->setUtilisateur($user);
                   $entityManager->persist($Reclamation);
                   $entityManager->flush();
                   $this->addFlash(

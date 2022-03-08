@@ -53,11 +53,9 @@
                 <td>{{ avi.hotel.nom }}</td>
                 <td>{{ avi.avisScore }}</td>
                 <td>{{ avi.description }}</td>
-                <td>avi.utilisateur.username</td>
-
+                <td>{{avi.utilisateur.name}}</td>
                 <td>
                     <a href="{{ path('app_avis_show', {'id': avi.id}) }}">detail</a>
-                    <a href="{{ path('app_avis_edit', {'id': avi.id}) }}">modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -69,12 +67,7 @@
     </table>
     </br>
      </br>
-<p class="text-muted font-14 m-b-20">
-            <a href="{{ path('app_avis_new') }}">        
-                <button type="button" class="btn btn-purple btn-rounded w-md waves-effect waves-light m-b-5">Ajouter un nouveau avis</button>                          
-        
-            </a>
-         </p>
+
 
          <p class="text-muted font-14 m-b-20">
             <a href="{{ path('app_avis_stats') }}">        

@@ -6,6 +6,7 @@ use App\Repository\AvisRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AvisRepository::class)
@@ -21,6 +22,11 @@ class Avis
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 10,
+     *      notInRangeMessage = "le score doit etre compris entre {{ min }} et {{ max }}",
+     * )
      */
     private $avisScore;
 
@@ -30,15 +36,15 @@ class Avis
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="avis")
-     */
-    private $utilisateur;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Hotel::class, inversedBy="avis")
      * @ORM\JoinColumn(nullable=false)
      */
     private $hotel;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="avis")
+     */
+    private $Utilisateur;
 
     public function __construct()
     {
@@ -74,35 +80,7 @@ class Avis
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUtilisateur(): Collection
-    {
-        return $this->utilisateur;
-    }
-
-    public function addUtilisateur(User $utilisateur): self
-    {
-        if (!$this->utilisateur->contains($utilisateur)) {
-            $this->utilisateur[] = $utilisateur;
-            $utilisateur->setAvis($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUtilisateur(User $utilisateur): self
-    {
-        if ($this->utilisateur->removeElement($utilisateur)) {
-            // set the owning side to null (unless already changed)
-            if ($utilisateur->getAvis() === $this) {
-                $utilisateur->setAvis(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     public function getHotel(): ?Hotel
     {
@@ -112,6 +90,18 @@ class Avis
     public function setHotel(?Hotel $hotel): self
     {
         $this->hotel = $hotel;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?User
+    {
+        return $this->Utilisateur;
+    }
+
+    public function setUtilisateur(?User $Utilisateur): self
+    {
+        $this->Utilisateur = $Utilisateur;
 
         return $this;
     }

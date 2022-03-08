@@ -9,12 +9,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @Route("/avis")
  */
 class AvisController extends AbstractController
 {
+
+    private $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
 
 
     /**
@@ -36,7 +44,40 @@ class AvisController extends AbstractController
         $form = $this->createForm(AvisType::class, $avi);
         $form->handleRequest($request);
 
+        $user = $this->security->getUser();
+        $avi->setUtilisateur($user);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            // testing bad words
+            $curl = curl_init();
+
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.apilayer.com/bad_words",
+                CURLOPT_HTTPHEADER => array(
+                    "Content-Type: text/plain",
+                    "apikey: TkHPxAmGODtg0Ado42uvuvsmRvWNDH4z"
+                ),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS =>  $avi->getDescription()
+            ));
+
+            $response = json_decode(curl_exec($curl), true);
+
+            curl_close($curl);
+
+            if (isset($response['censored_content']))
+                $avi->setDescription($response['censored_content']);
+            else $avi->setDescription("api key expired");
+
+
+
+
             $this->getDoctrine()->getManager()->persist($avi);
             $this->getDoctrine()->getManager()->flush();
 
@@ -60,18 +101,47 @@ class AvisController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="app_avis_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}/{idRes}", name="app_avis_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Avis $avi): Response
+    public function edit(Request $request, Avis $avi, $idRes): Response
     {
         $form = $this->createForm(AvisType::class, $avi);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // testing bad words using api
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => "https://api.apilayer.com/bad_words",
+                CURLOPT_HTTPHEADER => array(
+                    "Content-Type: text/plain",
+                    "apikey: TkHPxAmGODtg0Ado42uvuvsmRvWNDH4z"
+                ),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "POST",
+                CURLOPT_POSTFIELDS =>  $avi->getDescription()
+            ));
+
+            $response = json_decode(curl_exec($curl), true);
+
+            curl_close($curl);
+
+            if (isset($response['censored_content']))
+                $avi->setDescription($response['censored_content']);
+            else $avi->setDescription( "api key expired");
+
+
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('app_avis_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('detailsreservation', ['id' => $idRes], Response::HTTP_SEE_OTHER);
         }
+
 
         return $this->render('avis/edit.html.twig', [
             'avi' => $avi,
@@ -80,11 +150,11 @@ class AvisController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", name="app_avis_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="app_avis_delete", methods={"POST"})
      */
     public function delete(Request $request, Avis $avi): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$avi->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $avi->getId(), $request->request->get('_token'))) {
             $this->getDoctrine()->getManager()->remove($avi);
             $this->getDoctrine()->getManager()->flush();
         }
@@ -92,16 +162,17 @@ class AvisController extends AbstractController
         return $this->redirectToRoute('app_avis_index', [], Response::HTTP_SEE_OTHER);
     }
 
-     /**
+    /**
      * @Route("/stats", name="app_avis_stats", methods={"GET"})
      */
     public function stats(AvisRepository $avisRepository): Response
     {
-        $stats = $avisRepository->getScoreGrouppedByHotels();
-
+        $stats = $avisRepository->getAvgScoreGrouppedByHotel();
+        $pieStats = $avisRepository->getSumScoreGrouppedByHotel();
         return $this->render('avis/stats.html.twig', [
             'avis' => $avisRepository->findAll(),
-            'stats' => $stats ,
+            'stats' => $stats,
+            'pieStats' => $pieStats
         ]);
     }
 }

@@ -64,7 +64,7 @@
 						</div>
 					</div>
 
-					<h4 class="header-title m-t-0 m-b-30">Distributed series</h4>
+					<h4 class="header-title m-t-0 m-b-30">La moyenne des avis par hotels</h4>
 
 					<div id="distributed-series" class="ct-chart ct-golden-section">
 						<div class="chartist-tooltip" style="top: 216px; left: 317.5px;">
@@ -94,7 +94,7 @@
 						</div>
 					</div>
 
-					<h4 class="header-title m-t-0 m-b-30">Evaluation score par Hotel</h4>
+					<h4 class="header-title m-t-0 m-b-30">La somme des avis par Hotel</h4>
 
 					<div id="animating-donut" class="ct-chart ct-golden-section">
 						<div class="chartist-tooltip" style="top: 227px; left: 409px;">
@@ -117,9 +117,24 @@
 
 			// Animating a Donut with Svg.animate
 
+var chartData = new Array();
+var chartLabel = new Array();
+{% for stat in stats %}
+    chartData.push('{{ stat.value }}'); //Fill up the total queue
+    chartLabel.push('{{ stat[0].hotel.nom }}')
+{% endfor %}
+
+
+var pieChartData = new Array();
+var pieChartLabel = new Array();
+{% for stat in pieStats %}
+    pieChartData.push('{{ stat.value }}'); //Fill up the total queue
+    pieChartLabel.push('{{ stat[0].hotel.nom }}')
+{% endfor %}
+
 var chart = new Chartist.Pie('#animating-donut', {
-series: [10],
-labels: [1]
+series: pieChartData,
+labels: pieChartLabel
 }, {
 donut: true,
 showLabel: false,
@@ -179,8 +194,8 @@ window.__anim21278907124 = setTimeout(chart.update.bind(chart), 10000);
 // Distributed series
 
 new Chartist.Bar('#distributed-series', {
-labels: ['XS'],
-series: [20]
+labels: chartLabel,
+series: chartData
 }, {
 distributeSeries: true,
 plugins: [Chartist.plugins.tooltip()]

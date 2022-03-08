@@ -57,11 +57,23 @@ class User implements UserInterface
      */
     private $products;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="Utilisateur")
+     */
+    private $avis;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reclamation::class, mappedBy="utilisateur")
+     */
+    private $reclamations;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->billets = new ArrayCollection();
         $this->products = new ArrayCollection();
+        $this->avis = new ArrayCollection();
+        $this->reclamations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -235,6 +247,66 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($product->getUser() === $this) {
                 $product->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): self
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis[] = $avi;
+            $avi->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getUtilisateur() === $this) {
+                $avi->setUtilisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reclamation>
+     */
+    public function getReclamations(): Collection
+    {
+        return $this->reclamations;
+    }
+
+    public function addReclamation(Reclamation $reclamation): self
+    {
+        if (!$this->reclamations->contains($reclamation)) {
+            $this->reclamations[] = $reclamation;
+            $reclamation->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReclamation(Reclamation $reclamation): self
+    {
+        if ($this->reclamations->removeElement($reclamation)) {
+            // set the owning side to null (unless already changed)
+            if ($reclamation->getUtilisateur() === $this) {
+                $reclamation->setUtilisateur(null);
             }
         }
 

@@ -43,6 +43,11 @@ class Reclamation
      */
     private $reponse;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reclamations")
+     */
+    private $utilisateur;
+
 
 
     public function getId(): ?int
@@ -104,6 +109,18 @@ class Reclamation
         }
 
         $this->reponse = $reponse;
+
+        return $this;
+    }
+
+    public function getUtilisateur(): ?User
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?User $utilisateur): self
+    {
+        $this->utilisateur = $utilisateur;
 
         return $this;
     }

@@ -14,7 +14,7 @@ class AvisType extends AbstractType
         $builder
             ->add('avisScore')
             ->add('description')
-            ->add('hotel')
+            
         ;
     }
 

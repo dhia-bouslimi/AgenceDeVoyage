@@ -23,13 +23,35 @@ class AvisRepository extends ServiceEntityRepository
     //  * @return Avis[] Returns an array of Avis objects
     //  */
     
-    public function getScoreGrouppedByHotels()
+    public function getAvgScoreGrouppedByHotel()
+    {
+        return $this->createQueryBuilder('a')->addSelect("AVG(a.avisScore) as value ")->addSelect("MAX(a.hotel) as label")
+            ->groupBy('a.hotel')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function getSumScoreGrouppedByHotel()
     {
         return $this->createQueryBuilder('a')->addSelect("SUM(a.avisScore) as value ")->addSelect("MAX(a.hotel) as label")
             ->groupBy('a.hotel')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    public function checkIfUserRatedHotel($user , $hotel)
+    {
+        return $this->createQueryBuilder('a')
+        ->andWhere('a.hotel = :h')
+        ->andWhere('a.Utilisateur = :u')
+        ->setParameter('h', $hotel)
+        ->setParameter('u', $user)
+        ->getQuery()
+        ->getOneOrNullResult()
         ;
     }
     

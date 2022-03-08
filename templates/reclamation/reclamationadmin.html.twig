@@ -48,7 +48,7 @@
      <td>{{Reclamation.id}}</td>
     <td>{{Reclamation.titre}}</td>
     <td>{{Reclamation.contenu}}</td>
-   <td> Ecrit le {{Reclamation.createdAt | date('d/m/Y')}} à {{Reclamation.createdAt | date('H:i')}} </td>
+   <td> Ecrit le {{Reclamation.createdAt | date('d/m/Y')}} à {{Reclamation.createdAt | date('H:i')}} by {{ Reclamation.utilisateur.name}} </td>
    <td> <button class="btn btn-info" > <a href="{{ path('Reclamation', {'id': Reclamation.id}) }}" style="color:white">details</a></button></td>
    <td> <button class="btn btn-danger" ><a href="{{ path('delete_Reclamation', {'id': Reclamation.id}) }}" style="color:white">Supprimer</a></button></td>
      <td> <button class="btn btn-success" ><a href="{{ path('rep_add', {'id': Reclamation.id}) }}" style="color:white">reponse</a></button></td>
