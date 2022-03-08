@@ -490,7 +490,7 @@ class HotelController extends AbstractController
 
 
 //liste des hotels dans la base
-    public function getData() :array
+    public function getData() : array
     {
         /**
          * @var $Hotel Hotel[]
