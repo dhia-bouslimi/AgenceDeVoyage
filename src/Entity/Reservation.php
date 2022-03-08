@@ -31,7 +31,11 @@ class Reservation
     private $typePension;
 
     /**
-     * @Assert\NotBlank(message="etat de hotel doit etre non vide")
+     * @Assert\Date()
+     * @Assert\Expression(
+     *     "this.getDarrive() < this.getDquitte()",
+     *     message="La date de depart ne doit pas être postérieure à la date d'arrive"
+     * )
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $darrive;
@@ -39,7 +43,11 @@ class Reservation
 
 
     /**
-     * @Assert\NotBlank(message="etat de hotel doit etre non vide")
+     * @Assert\Date()
+     * @Assert\Expression(
+     *     "this.getDarrive() < this.getDquitte()",
+     *     message="La date d'arrive ne doit pas être antérieure à la date début"
+     * )
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $dquitte;
@@ -55,6 +63,16 @@ class Reservation
      * @ORM\JoinColumn(nullable=false)
      */
     private $chambre;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="reservations")
+     */
+    private $user;
 
 
 
@@ -158,6 +176,30 @@ class Reservation
     public function setChambre(?Chambre $chambre): self
     {
         $this->chambre = $chambre;
+
+        return $this;
+    }
+
+    public function getEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(bool $etat): self
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

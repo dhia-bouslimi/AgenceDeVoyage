@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=VolRepository::class)
@@ -17,6 +18,7 @@ class Vol
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer" )
+     * @Groups("vol")
      */
     private $id;
 
@@ -30,6 +32,7 @@ class Vol
      *
      *     )
      * @ORM\Column(type="string", length=40)
+     *  @Groups("vol")
      */
     private $type;
 
@@ -56,6 +59,7 @@ class Vol
      *     message="La date de depart ne doit pas être postérieure à la date d'arrive"
      * )
      * @ORM\Column(type="datetime", nullable=true)
+     *  @Groups("vol")
      */
     private $depart;
 
@@ -66,6 +70,7 @@ class Vol
      *     message="La date d'arrive ne doit pas être antérieure à la date début"
      * )
      * @ORM\Column(type="datetime", nullable=true)
+     *  @Groups("vol")
      */
     private $arrive;
 
@@ -77,6 +82,7 @@ class Vol
      *
      *     )
      * @ORM\Column(type="string", length=255, nullable="true")
+     *  @Groups("vol")
      */
     private $duree;
 
@@ -90,6 +96,7 @@ class Vol
      *
      *     )
      * @ORM\Column(type="string", length=255, nullable="true")
+     *  @Groups("vol")
      */
     private $destination;
 
@@ -100,11 +107,13 @@ class Vol
      *  message = "le nombre de place d'un vol ne doit pas etre égale a 0"
      * )
      * @ORM\Column(type="integer")
+     *  @Groups("vol")
      */
     private $place;
 
     /**
      * @ORM\OneToMany(targetEntity=Billet::class, mappedBy="vol", orphanRemoval=true)
+     *  @Groups("vol")
      */
     private $billets;
 

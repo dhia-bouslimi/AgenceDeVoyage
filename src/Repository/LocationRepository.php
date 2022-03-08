@@ -18,7 +18,17 @@ class LocationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Location::class);
     }
+    public function getNB()
+    {
 
+        $qb = $this->createQueryBuilder('c')
+            ->select('COUNT(c) AS lo, (c.voiture) AS voi')
+            ->groupBy('voi');
+
+
+        return $qb->getQuery()
+            ->getResult();
+    }
     // /**
     //  * @return Location[] Returns an array of Location objects
     //  */

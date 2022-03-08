@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups ;
+
 
 
 /**
@@ -19,6 +21,8 @@ class Hotel
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $id;
 
@@ -30,6 +34,8 @@ class Hotel
      *
      *     )
      * @ORM\Column(type="string", length=255)
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $nom;
 
@@ -39,6 +45,8 @@ class Hotel
      *     message = "L'e-mail n'est pas un e-mail valide"
      * )
      * @ORM\Column(type="string", length=255)
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $address;
 
@@ -51,6 +59,8 @@ class Hotel
      *      notInRangeMessage = "le nbr des etoiles doit etre valid",
      *     )
      * @ORM\Column(type="integer")
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $etoile;
 
@@ -58,6 +68,8 @@ class Hotel
      * @Assert\NotBlank(message="etat de hotel doit etre non vide")
      * @Assert\Choice({"Disponible", "non Disponible"})
      * @ORM\Column(type="string", length=255)
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $etat;
 
@@ -65,24 +77,31 @@ class Hotel
      * @Assert\NotBlank(message="le nombre de chambres doit etre non vide")
      *@Assert\PositiveOrZero
      * @ORM\Column(type="integer")
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $nbrChambre;
 
     /**
      * @Assert\NotBlank(message="le nombre de chambres doit etre non vide")
      * @ORM\Column(type="string", length=255)
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255,)
-     *
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $image;
 
 
     /**
      * @Assert\File(maxSize="6000000")
+     * @Groups({"hotel"})
+     * @Groups("posts:read")
      */
     private $file;
 
@@ -91,15 +110,9 @@ class Hotel
      */
     private $chambre;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="hotel", orphanRemoval=true)
-     */
-    private $avis;
-
     public function __construct()
     {
         $this->chambre = new ArrayCollection();
-        $this->avis = new ArrayCollection();
     }
 
 
@@ -273,40 +286,6 @@ class Hotel
         return $this;
     }
 
-    /**
-     * @return Collection<int, Avis>
-     */
-    public function getAvis(): Collection
-    {
-        return $this->avis;
-    }
-
-    public function addAvi(Avis $avi): self
-    {
-        if (!$this->avis->contains($avi)) {
-            $this->avis[] = $avi;
-            $avi->setHotel($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAvi(Avis $avi): self
-    {
-        if ($this->avis->removeElement($avi)) {
-            // set the owning side to null (unless already changed)
-            if ($avi->getHotel() === $this) {
-                $avi->setHotel(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->nom;
-    }
 
 
 }

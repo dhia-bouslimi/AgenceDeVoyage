@@ -6,6 +6,7 @@ use App\Entity\Chambre;
 use App\Entity\Hotel;
 use App\Form\ChambreType;
 use App\Form\HotelType;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -64,11 +65,17 @@ class ChambreController extends AbstractController
     /**
      * @Route("/listeChambre", name="listeChambre")
      */
-    public function listhotel(): Response
+    public function listhotel(PaginatorInterface $paginator,Request $request ): Response
     {
 
         $res = $this->getDoctrine()->getManager()->getRepository(Chambre::class)->findAll();
-        return $this->render('hotel/listeChambre.html.twig',array('chambres'=>$res));
+
+
+        $chamb =$paginator->paginate(
+            $res,
+            $request->query->getInt('page',1),4
+        );
+        return $this->render('hotel/listeChambre.html.twig',array('chambres'=>$chamb));
     }
 
 

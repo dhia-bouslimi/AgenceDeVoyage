@@ -45,7 +45,7 @@ class Chambre
 
     /**
      * @Assert\NotBlank(message="type lit doit etre non vide")
-     * @Assert\Choice({"double", "single", "single"})
+     * @Assert\Choice({"double", "single", "triple"})
      * @ORM\Column(type="string", length=255)
      */
     private $typeNbBLit;

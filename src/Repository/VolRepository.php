@@ -37,7 +37,7 @@ class VolRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Vol
+    public function findOneBySomeField($value):
     {
         return $this->createQueryBuilder('v')
             ->andWhere('v.exampleField = :val')
@@ -47,4 +47,18 @@ class VolRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function rechercheAvance($str) {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT V
+                FROM App\Entity\Vol V
+                WHERE V.destination LIKE :str'
+            )
+            ->setParameter('str', '%'.$str.'%')
+            ->getResult();
+    }
+
+
+
 }

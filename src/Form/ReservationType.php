@@ -31,9 +31,15 @@ class ReservationType extends AbstractType
 
             ])
             ->add('darrive', DateTimeType::class, [
-                'date_label' => 'Starts On'])
+
+                'date_label' => 'Starts On',
+
+            ])
             ->add('dquitte', DateTimeType::class, [
+
                 'date_label' => 'Starts On'])
+
+
             ->add('Submit',SubmitType::class)
 
 
