@@ -22,19 +22,17 @@ class AvisRepository extends ServiceEntityRepository
     // /**
     //  * @return Avis[] Returns an array of Avis objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function getScoreGrouppedByHotels()
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
+        return $this->createQueryBuilder('a')->addSelect("SUM(a.avisScore) as value ")->addSelect("MAX(a.hotel) as label")
+            ->groupBy('a.hotel')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?Avis

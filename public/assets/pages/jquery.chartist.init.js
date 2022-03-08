@@ -8,12 +8,10 @@
 
 
   var chart = new Chartist.Line('#smil-animations', {
-  labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
+  labels: ['1'],
   series: [
-    [12, 9, 7, 8, 5, 4, 6, 2, 3, 3, 4, 6],
-    [4,  5, 3, 7, 3, 5, 5, 3, 4, 4, 5, 5],
-    [5,  3, 4, 5, 6, 3, 3, 4, 5, 6, 3, 4],
-    [3,  4, 5, 6, 7, 6, 4, 5, 6, 7, 6, 3]
+    [12, 9, 7, 8, 5, 4, 6, 2, 3, 3, 4, 6]
+  
   ]
 }, {
   low: 0,
@@ -561,8 +559,8 @@ new Chartist.Bar('#extreme-chart', {
 //Distributed series
 
 new Chartist.Bar('#distributed-series', {
-  labels: ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
-  series: [20, 60, 120, 200, 180, 20, 10]
+  labels: ['XS'],
+  series: [20]
 }, {
   distributeSeries: true,
   plugins: [
@@ -600,8 +598,8 @@ new Chartist.Bar('#label-placement-chart', {
 //Animating a Donut with Svg.animate
 
 var chart = new Chartist.Pie('#animating-donut', {
-  series: [10, 20, 50, 20, 5, 50, 15],
-  labels: [1, 2, 3, 4, 5, 6, 7]
+  series: [10],
+  labels: [1]
 }, {
   donut: true,
   showLabel: false,

@@ -50,7 +50,7 @@ class AvisController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_avis_show", methods={"GET"})
+     * @Route("/detail/{id}", name="app_avis_show", methods={"GET"})
      */
     public function show(Avis $avi): Response
     {
@@ -60,7 +60,7 @@ class AvisController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_avis_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="app_avis_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Avis $avi): Response
     {
@@ -80,7 +80,7 @@ class AvisController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_avis_delete", methods={"POST"})
+     * @Route("/edit/{id}", name="app_avis_delete", methods={"POST"})
      */
     public function delete(Request $request, Avis $avi): Response
     {
@@ -90,5 +90,18 @@ class AvisController extends AbstractController
         }
 
         return $this->redirectToRoute('app_avis_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+     /**
+     * @Route("/stats", name="app_avis_stats", methods={"GET"})
+     */
+    public function stats(AvisRepository $avisRepository): Response
+    {
+        $stats = $avisRepository->getScoreGrouppedByHotels();
+
+        return $this->render('avis/stats.html.twig', [
+            'avis' => $avisRepository->findAll(),
+            'stats' => $stats ,
+        ]);
     }
 }
