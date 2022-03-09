@@ -12,11 +12,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Repository\ReponseRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 use Symfony\Component\Security\Core\Security;
 
 
-class ReclamationController extends AbstractController
+class ReclamationController extends Controller
 {
 
 

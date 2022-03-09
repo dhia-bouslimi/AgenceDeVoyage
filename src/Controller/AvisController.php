@@ -55,7 +55,7 @@ class AvisController extends AbstractController
                 CURLOPT_URL => "https://api.apilayer.com/bad_words",
                 CURLOPT_HTTPHEADER => array(
                     "Content-Type: text/plain",
-                    "apikey: TkHPxAmGODtg0Ado42uvuvsmRvWNDH4z"
+                    "apikey: Y8VtGeSFl7x2KVoZmdV8YvuZYsBzsrTv"
                 ),
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
@@ -116,7 +116,7 @@ class AvisController extends AbstractController
                 CURLOPT_URL => "https://api.apilayer.com/bad_words",
                 CURLOPT_HTTPHEADER => array(
                     "Content-Type: text/plain",
-                    "apikey: TkHPxAmGODtg0Ado42uvuvsmRvWNDH4z"
+                    "apikey: Y8VtGeSFl7x2KVoZmdV8YvuZYsBzsrTv"
                 ),
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => "",
